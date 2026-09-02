@@ -2,63 +2,93 @@
 
 [🇬🇧 English](./README.md) · [🇫🇷 Français](./README_FR.md)
 
-**NeoMundi is a runtime measurement layer for AI systems.**
+**Measure, characterize and trace AI behavior in production.**
 
-It observes the runtime behaviour of an AI system's execution and produces structured, versioned, interoperable measurements about that behaviour. It does not decide what should happen as a result.
+Produce reproducible, machine-readable and independently verifiable measurement evidence for monitoring, audit, governance, assurance and optimization.
+
+**Defined semantics · Comparable over time · Structured JSON · Timestamped · Versioned · Hash & signature verifiable**
 
 > **NeoMundi measures. The consuming system interprets, governs and acts.**
-
----
-
-## How it fits together
 
 ```text
 AI System
    │
    ▼
-NeoMundi Runtime Measurement API
+NeoMundi Runtime Measurement Layer
    │
    ▼
-Runtime Measurement
+Runtime Signals
    │
    ▼
 Interoperable Measurement Contract
    │
    ▼
 Customer / Integrator Systems
-   (interpretation, policy, action)
 ```
 
-NeoMundi sits between an AI system's execution and the infrastructure that consumes information about that execution. It does not sit downstream of the decision.
+---
 
-## The four central elements
+## What it does
 
-1. **NeoMundi API** — the interface through which an AI execution is observed and measured. See [API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md).
-2. **Runtime measurement** — the structured output describing observed behaviour (stability, coherence, factual-validity and risk signals, among others) under declared conditions and limitations. See [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md).
-3. **Interoperable measurement contract** — the versioned, machine-consumable, independently verifiable representation of a measurement, designed to be exchanged and consumed across systems. See [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md).
-4. **Official integration documentation** — this repository: the API guide, the measurement contract, the interpretation table and the consumer boundaries that together define correct usage.
+- **Runtime measurement** — observes the behaviour of an AI system during or after execution, under declared conditions.
+- **Behavioural and operational signals** — e.g. `stability_score`, `coherence_score`, `factual_validity_signal`, `semantic_variability_signal`, `risk_signal`. See [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md).
+- **Defined semantics** — each signal's meaning, limits, and what it does *not* mean are documented at the same time it is produced, not left to inference. See [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md).
+- **Reproducibility** — measurement conditions, protocol, and versions are declared, so a measurement can be reproduced or independently challenged.
+- **Comparison over time** — signals carry explicit version information so historical observations remain interpretable as the contract evolves. See [VERSIONING.md](./VERSIONING.md).
+- **Traceability** — identifiers, timestamps, and provenance connect a measurement back to the observation that produced it.
+- **Interoperable measurement records** — measurements are exposed through a structured, machine-consumable, independently verifiable contract. See [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md).
 
-A fifth, necessary layer sits alongside these: **documentation of interpretation**. A measurement is only usable correctly if its meaning, and the limits of that meaning, are documented at the same time it is produced. [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md) and [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md) exist for this reason — they are part of what makes the measurement layer usable, not a governance or compliance layer in themselves.
+"Characterize" means a NeoMundi measurement comes with defined semantics, declared scope, versioning, and interpretation rules. It does **not** mean NeoMundi universally diagnoses root causes — see [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
 
-## What NeoMundi does
+## What it produces
 
-- Observes the runtime execution of an AI system under declared conditions.
-- Produces versioned runtime measurements and signals (e.g. `stability_score`, `coherence_score`, `factual_validity_signal`, `semantic_variability_signal`, `risk_signal`).
-- Documents the meaning, limitations and boundaries of each measurement.
-- Exposes those measurements through an interoperable contract that can be consumed, exchanged, and where applicable independently verified, by external systems.
-- Distinguishes explicitly between what is measured, what is unknown, and what is not assessed.
+- **Runtime signals** describing observed behaviour (stability, coherence, factual-validity, semantic-variability, risk — among others).
+- **Structured measurement records**, timestamped and identifiable back to the observation and request that produced them.
+- **Version information** distinguishing schema, metric, and normalizer versions — see [VERSIONING.md](./VERSIONING.md).
+- **Provenance** — what produced the measurement and under which protocol.
+- **Integrity information** — a payload hash and, where produced, a cryptographic signature that a third party can verify independently, without needing to trust NeoMundi's infrastructure.
+- **Interoperable, machine-readable JSON**, where supported by the interoperability layer — see [schema/](./schema/) and [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md). The interoperable measurement contract defines the structure, representation and interpretation rules of runtime measurements produced by NeoMundi.
 
-## What NeoMundi does not do
+## Why it matters
 
-- It is not a dashboard.
-- It is not a `.exe` application.
-- It is not a governance engine.
-- It is not a compliance engine.
-- It is not a policy engine.
-- It is not an actionability layer.
-- It is not a business application.
-- It does not decide `ALLOW`, `BLOCK`, `STOP`, or any other operational or execution consequence. It measures; the consuming system decides.
-- It does not itself constitute proof of truth, safety, compliance or admissibility. See [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
+The same measurement layer can support downstream:
+
+- monitoring
+- audit
+- governance
+- assurance
+- optimization
+
+These are downstream uses of the measurement, built and operated by the consuming system — **this repository does not implement any of them**. One measurement primitive can feed several different downstream infrastructures without those infrastructures needing to become NeoMundi systems.
+
+## How it integrates
+
+- [QUICKSTART.md](./QUICKSTART.md) — get a first measurement in a few minutes.
+- [API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md) — endpoints, payloads, headers, error handling.
+- [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md) — what each measurement and signal means, and its limits.
+- [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md) — quick-reference table: signal → meaning → what it does not mean.
+- [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md) — structure, versioning, provenance and exchange of the measurement contract.
+
+## Architectural boundary
+
+> **NeoMundi measures.**
+> **The consuming system interprets, governs and acts.**
+
+**Measurement ≠ Interpretation ≠ Policy ≠ Execution**
+
+The NeoMundi Runtime Measurement Layer is not:
+
+- an AI governance platform;
+- a compliance engine;
+- a policy engine;
+- a decision engine;
+- a monitoring dashboard;
+- a `.exe` application;
+- a business application.
+
+Monitoring, audit, governance, assurance, and optimization are downstream uses of the measurement — not this product. NeoMundi does not decide `ALLOW`, `BLOCK`, `STOP`, or any other operational or execution consequence, and a NeoMundi measurement does not itself constitute proof of truth, safety, compliance, or admissibility. See [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
+
+---
 
 ## Documentation map
 
@@ -78,7 +108,7 @@ A fifth, necessary layer sits alongside these: **documentation of interpretation
 
 ## Status
 
-This repository documents a measurement layer whose contract is still partly in **Draft** and, for some signals, explicitly **experimental / pre-freeze**. Every document below states its own status. Nothing here should be read as a finalized, frozen specification unless it says so explicitly.
+This repository documents a measurement layer whose contract is still partly in **Draft** and, for some signals, explicitly **experimental / pre-freeze**. Every document above states its own status. Nothing here should be read as a finalized, frozen specification unless it says so explicitly.
 
 ## Future architecture
 

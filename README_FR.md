@@ -2,65 +2,93 @@
 
 [🇬🇧 English](./README.md) · [🇫🇷 Français](./README_FR.md)
 
-**NeoMundi est une couche de mesure runtime pour les systèmes d'IA.**
+**Mesurer, caractériser et tracer le comportement des systèmes d'IA en production.**
 
-NeoMundi mesure le comportement runtime des systèmes d'IA. Elle observe le comportement runtime de l'exécution d'un système d'IA et produit des mesures structurées, versionnées et interopérables sur ce comportement. Elle ne décide pas de ce qui doit en résulter.
+Produire des preuves de mesure reproductibles, lisibles par machine et vérifiables indépendamment pour le monitoring, l'audit, la gouvernance, l'assurance et l'optimisation.
+
+**Sémantique définie · Comparable dans le temps · JSON structuré · Horodaté · Versionné · Hash & signature vérifiables**
 
 > **NeoMundi mesure. Le système consommateur interprète, gouverne et agit.**
-
----
-
-## Comment cela s'articule
 
 ```text
 Système d'IA
    │
    ▼
-API NeoMundi de mesure runtime
+NeoMundi Runtime Measurement Layer
    │
    ▼
-Mesure runtime
+Signaux runtime
    │
    ▼
 Contrat interopérable de mesure
    │
    ▼
 Systèmes clients / intégrateurs
-   (interprétation, politique, action)
 ```
 
-NeoMundi se situe entre l'exécution d'un système d'IA et l'infrastructure qui consomme l'information sur cette exécution. NeoMundi ne se situe pas en aval de la décision.
+---
 
-## Les quatre éléments centraux
+## Ce que ça fait
 
-1. **API NeoMundi** — l'interface par laquelle une exécution d'IA est observée et mesurée. Voir [API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md).
-2. **Mesure runtime** — la sortie structurée décrivant le comportement observé (stabilité, cohérence, signaux de validité factuelle et de risque, entre autres) dans des conditions et des limites déclarées. Voir [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md).
-3. **Contrat interopérable de mesure** — la représentation versionnée, consommable par machine et vérifiable indépendamment d'une mesure, conçue pour être échangée et consommée entre systèmes. Le contrat interopérable définit la structure, la représentation et les règles d'interprétation des mesures runtime produites par NeoMundi. Voir [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md).
-4. **Documentation d'intégration officielle** — ce dépôt : le guide API, le contrat de mesure, la table d'interprétation et les frontières consommateur qui définissent ensemble un usage correct.
+- **Mesure runtime** — observe le comportement d'un système d'IA pendant ou après son exécution, dans des conditions déclarées.
+- **Signaux comportementaux et opérationnels** — par ex. `stability_score`, `coherence_score`, `factual_validity_signal`, `semantic_variability_signal`, `risk_signal`. Voir [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md).
+- **Sémantique définie** — la signification de chaque signal, ses limites, et ce qu'il ne signifie pas, sont documentées en même temps qu'il est produit, non laissées à l'interprétation. Voir [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md).
+- **Reproductibilité** — les conditions de mesure, le protocole et les versions sont déclarés, de sorte qu'une mesure puisse être reproduite ou contestée de façon indépendante.
+- **Comparaison dans le temps** — les signaux portent une information de version explicite afin que les observations historiques restent interprétables à mesure que le contrat évolue. Voir [VERSIONING.md](./VERSIONING.md).
+- **Traçabilité** — identifiants, horodatages et provenance relient une mesure à l'observation qui l'a produite.
+- **Enregistrements de mesure interopérables** — les mesures sont exposées via un contrat structuré, consommable par machine et vérifiable indépendamment. Voir [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md).
 
-Une cinquième couche, nécessaire, accompagne ces quatre éléments : **la documentation d'interprétation**. Une mesure n'est utilisable correctement que si sa signification, et les limites de cette signification, sont documentées en même temps qu'elle est produite. [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md) et [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md) existent pour cette raison — elles font partie de ce qui rend la couche de mesure utilisable, elles ne constituent pas en elles-mêmes une couche de gouvernance ou de conformité.
+« Caractériser » signifie qu'une mesure NeoMundi est accompagnée d'une sémantique définie, d'un périmètre déclaré, d'un versionnement et de règles d'interprétation. Cela ne signifie **pas** que NeoMundi diagnostique universellement des causes racines — voir [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
 
-## Ce que NeoMundi fait
+## Ce que ça produit
 
-- Observe l'exécution runtime d'un système d'IA dans des conditions déclarées.
-- Produit des mesures et signaux runtime versionnés (par ex. `stability_score`, `coherence_score`, `factual_validity_signal`, `semantic_variability_signal`, `risk_signal`).
-- Documente la signification, les limitations et les frontières de chaque mesure.
-- Expose ces mesures via un contrat interopérable qui peut être consommé, échangé et, le cas échéant, vérifié indépendamment par des systèmes externes.
-- Distingue explicitement ce qui est mesuré, ce qui est inconnu, et ce qui n'est pas évalué.
+- **Des signaux runtime** décrivant le comportement observé (stabilité, cohérence, validité factuelle, variabilité sémantique, risque — entre autres).
+- **Des enregistrements de mesure structurés**, horodatés et identifiables jusqu'à l'observation et la requête qui les ont produits.
+- **Une information de version** distinguant les versions de schéma, de métrique et de normaliseur — voir [VERSIONING.md](./VERSIONING.md).
+- **De la provenance** — ce qui a produit la mesure et sous quel protocole.
+- **De l'information d'intégrité** — une empreinte de hash et, lorsqu'elle est produite, une signature cryptographique qu'un tiers peut vérifier indépendamment, sans avoir à faire confiance à l'infrastructure de NeoMundi.
+- **Du JSON interopérable, lisible par machine**, là où la couche d'interopérabilité le prend en charge — voir [schema/](./schema/) et [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md). Le contrat interopérable de mesure définit la structure, la représentation et les règles d'interprétation des mesures runtime produites par NeoMundi.
 
-## Ce que NeoMundi ne fait pas
+## Pourquoi c'est utile
 
-- Ce n'est pas un tableau de bord.
-- Ce n'est pas une application `.exe`.
-- Ce n'est pas un moteur de gouvernance.
-- Ce n'est pas un moteur de conformité.
-- Ce n'est pas un policy engine.
-- Ce n'est pas une couche d'actionnabilité.
-- Ce n'est pas une application métier.
-- NeoMundi ne décide pas `ALLOW`, `BLOCK`, `STOP`, ni aucune autre conséquence opérationnelle ou d'exécution. NeoMundi mesure ; le système consommateur décide.
-- NeoMundi ne constitue pas en soi une preuve de vérité, de sécurité, de conformité ou d'admissibilité. Voir [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
+La même couche de mesure peut alimenter, en aval :
+
+- le monitoring
+- l'audit
+- la gouvernance
+- l'assurance
+- l'optimisation
+
+Ce sont des usages en aval de la mesure, construits et exploités par le système consommateur — **ce dépôt n'implémente aucun d'entre eux**. Une seule primitive de mesure peut alimenter plusieurs infrastructures en aval différentes sans que celles-ci n'aient besoin de devenir des systèmes NeoMundi.
+
+## Comment s'intégrer
+
+- [QUICKSTART.md](./QUICKSTART.md) — obtenir une première mesure en quelques minutes.
+- [API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md) — endpoints, payloads, headers, gestion des erreurs.
+- [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md) — ce que signifie chaque mesure et signal, et ses limites.
+- [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md) — table de référence rapide : signal → signification → ce qu'il ne signifie pas.
+- [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md) — structure, versionnement, provenance et échange du contrat de mesure.
+
+## Frontière architecturale
+
+> **NeoMundi mesure.**
+> **Le système consommateur interprète, gouverne et agit.**
 
 **Mesure ≠ Interprétation ≠ Politique ≠ Exécution**
+
+Le NeoMundi Runtime Measurement Layer n'est pas :
+
+- une plateforme de gouvernance de l'IA ;
+- un moteur de conformité ;
+- un policy engine ;
+- un moteur de décision ;
+- un tableau de bord de monitoring ;
+- une application `.exe` ;
+- une application métier.
+
+Le monitoring, l'audit, la gouvernance, l'assurance et l'optimisation sont des usages en aval de la mesure — pas ce produit. NeoMundi ne décide pas `ALLOW`, `BLOCK`, `STOP`, ni aucune autre conséquence opérationnelle ou d'exécution, et une mesure NeoMundi ne constitue pas en soi une preuve de vérité, de sécurité, de conformité ou d'admissibilité. Voir [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
+
+---
 
 ## Carte de la documentation
 
