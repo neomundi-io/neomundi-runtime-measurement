@@ -49,6 +49,8 @@ curl -X POST "https://api.neomundi.io/v1/rgc/contracts/REQUEST_ID_FROM_STEP_2" \
 
 This step is optional relative to steps 1–2 — the measurement already exists without it — but recommended whenever you need an audit trail that a third party can verify independently of NeoMundi's own infrastructure. See [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md).
 
+Before trusting the contract, check `identity.schema_version` and validate it against the matching schema in [schema/](./schema/) (`contract-v0.1.schema.json` or `contract-v0.2.schema.json`) — never interpret a contract under a different version's semantics than the one it declares.
+
 ## Where to read what a field means
 
 Do not guess. Every signal returned above has a documented meaning and, just as importantly, a documented **non**-meaning:

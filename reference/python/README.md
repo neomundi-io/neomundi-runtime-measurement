@@ -20,7 +20,11 @@ API call  →  runtime measurement  →  interoperable contract retrieval
 
 ## Status
 
-This code has not been run against a live NeoMundi API — the source guide it is adapted from notes that response values are illustrative and that the verification logic should be validated before production use (see [source-notes/SOURCE_STATUS.md](../../source-notes/SOURCE_STATUS.md)). Treat it as a starting point to adapt, not a drop-in production client.
+This code has not been run against a live NeoMundi API — the source guide it is adapted from notes that response values are illustrative. Treat it as a starting point to adapt, not a drop-in production client.
+
+Its verification logic (`verify_rgc_contract`) has, however, been independently cross-checked: it implements the same SHA-256 + Ed25519/JWS algorithm as NeoMundi's own published reference verifier (found in the NeoMundi Measurement Interoperability repository), and that exact algorithm was used to successfully re-verify both real signed examples now bundled in [schema/examples/](../../schema/examples/) (see [source-notes/SOURCE_STATUS.md](../../source-notes/SOURCE_STATUS.md)).
+
+A fuller reference consumer implementation exists upstream in that same interoperability repository — separate modules for schema validation, data-sovereignty checks, signature verification, an example consumer-defined routing policy, and receipt storage. It was not duplicated into this repository to keep this starter minimal; its schemas and examples are, however, included in [schema/](../../schema/).
 
 ## Usage
 

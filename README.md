@@ -1,5 +1,7 @@
 # NeoMundi Runtime Measurement Layer
 
+[🇬🇧 English](./README.md) · [🇫🇷 Français](./README_FR.md)
+
 **NeoMundi is a runtime measurement layer for AI systems.**
 
 It observes the runtime behaviour of an AI system's execution and produces structured, versioned, interoperable measurements about that behaviour. It does not decide what should happen as a result.

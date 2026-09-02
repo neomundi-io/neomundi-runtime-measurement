@@ -1,6 +1,6 @@
 # NeoMundi API — Integration Guide
 
-> **Provenance note.** This guide is derived from the NeoMundi client integration reference material and from the request/response handling implemented in NeoMundi's reference client code. Endpoint names, headers, request payload structure, and the field paths that production code reads (e.g. `governance.decision`, `identity.request_id`) are confirmed by that code. Response *example values* for `/v1/govern/stream` and `/v1/govern` are illustrative — they have not been captured from a live call — and are marked as such below. The RGC v0.1 contract example in §5 is a real signed example taken from the reference interoperability repository; the v0.2 fragment in §5.1 is an illustrative fixture from that same repository. See [source-notes/SOURCE_STATUS.md](./source-notes/SOURCE_STATUS.md) for full provenance.
+> **Provenance note.** This guide is derived from the NeoMundi client integration reference material, from the request/response handling implemented in NeoMundi's reference client code, and from the NeoMundi Measurement Interoperability repository (schemas, real signed examples, and reference verifier). Endpoint names, headers, request payload structure, and the field paths that production code reads (e.g. `governance.decision`, `identity.request_id`) are confirmed by that code. Response *example values* for `/v1/govern/stream` and `/v1/govern` are illustrative — they have not been captured from a live call — and are marked as such below. The RGC v0.1 contract example in §5 is a real signed example, independently re-verified (hash + Ed25519/JWS signature) while building this repository; the v0.2 example in §5.1 is an illustrative fixture, explicitly marked as unsigned in its source. See [source-notes/SOURCE_STATUS.md](./source-notes/SOURCE_STATUS.md) for full provenance.
 
 ## 1. Overview
 
@@ -269,7 +269,7 @@ Replace `{request_id}` with the `request_id` received in **step 2** (not step 1'
     "payload_hash": "746c8e82e28b3048ab6a070901c648fe89a3df7a33324a25fd4a2b16ae96402d",
     "hash_algorithm": "sha256",
     "canonicalization": "sorted-json-utf8",
-    "signature": "eyJhbGciOiJFZERTQSIsImtpZCI6Im5lb211bmRpLXJnYy0yMDI2LTAxIiwidHlwIjoiSldUIn0...(truncated)",
+    "signature": "eyJhbGciOiJFZERTQSIsImtpZCI6Im5lb211bmRpLXJnYy0yMDI2LTAxIiwidHlwIjoiSldUIn0.eyJwYXlsb2FkX2hhc2giOiI3NDZjOGU4MmUyOGIzMDQ4YWI2YTA3MDkwMWM2NDhmZTg5YTNkZjdhMzMzMjRhMjVmZDRhMmIxNmFlOTY0MDJkIiwiaGFzaF9hbGdvcml0aG0iOiJzaGEyNTYiLCJzY2hlbWFfdmVyc2lvbiI6IjAuMS4wIiwicmVxdWVzdF9pZCI6ImM3MzVmZTJjLWI4OGYtNDg4YS1hYjI3LWFhNDU2ZTQzYTU1NiIsInRpbWVzdGFtcCI6IjIwMjYtMDgtMTdUMjE6MDQ6NDUuMjQ1NjA1WiJ9.0Co6a9EN4xRRvfLV_8MCiJO5AWJ1F9SEF84Ck7YP5X5d6NAIGMuaQj2kENIyKHoBOmBQonsupgK1k2pT3Bw5DA",
     "signer_identity": "neomundi-controltower-rgc",
     "key_id": "neomundi-rgc-2026-01",
     "confidentiality_class": "controlled",
@@ -278,11 +278,15 @@ Replace `{request_id}` with the `request_id` received in **step 2** (not step 1'
 }
 ```
 
+This is the complete, untruncated signature — it has been independently re-verified (SHA-256 hash match and Ed25519/JWS signature valid against the published test key; see [schema/examples/](./schema/examples/)). A second real signed example (`flagged` classification) is also available there.
+
 Note that this contract's `governance` block itself states `authorization_status: "not_applicable"` and `execution_permission_changed: false` — the advisory signal does not grant, refuse, suspend or modify execution permission. This is consistent with the boundary in [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md): the `governance` naming in this payload is an object/field name in the current API, not a claim that NeoMundi performs governance.
 
 ### 5.1 Under RGC v0.2 — explicit partial measurement
 
-**Status: illustrative fixture, pre-freeze.** Since v0.2, each measured signal carries an individual status (`measured` / `not_measured` / `insufficient_coverage`) under `observation.observed_signals.signal_status`. A `not_measured` signal always has a `null` value — never silently replaced by a reassuring default. Example shape (illustrative fixture from the reference repository, not a captured real contract):
+Since v0.2, each measured signal carries an individual status (`measured` / `not_measured` / `insufficient_coverage`) under `observation.observed_signals.signal_status`. This is now **schema-enforced** by [schema/contract-v0.2.schema.json](./schema/contract-v0.2.schema.json): a signal with status `measured` must carry a numeric value; any other status must carry `null` — never silently replaced by a reassuring default. v0.2 also adds a third `observation_class` value, `not_assessed`, for when measured evidence is insufficient to support either `within_bounds` or `flagged`.
+
+**Status: the schema rule is normative; the specific example values below remain an illustrative fixture** — the full fixture (not just this fragment) is in [schema/examples/rgc-v0.2-flagged-partial-measurement-illustrative.json](./schema/examples/rgc-v0.2-flagged-partial-measurement-illustrative.json), and is explicitly marked `"signature": "illustrative.fixture.not-signed"` in the source — it is not a captured real contract. A second fixture demonstrating `not_measured` and `insufficient_coverage` values is in [schema/examples/rgc-v0.2-within-bounds-partial-measurement-illustrative.json](./schema/examples/rgc-v0.2-within-bounds-partial-measurement-illustrative.json). Example shape:
 
 ```json
 "observed_signals": {
@@ -376,6 +380,6 @@ Per the retry logic used in production tooling:
 
 ## 9. Out of scope for this document
 
-- The complete RGC JSON Schema (`schema/contract-v0.1.schema.json`, `schema/contract-v0.2.schema.json`) — these files are referenced by the reference material but were not supplied to this repository. See [source-notes/SOURCE_STATUS.md](./source-notes/SOURCE_STATUS.md).
+- Full field-by-field schema validation rules — the complete RGC JSON Schemas are included at [schema/contract-v0.1.schema.json](./schema/contract-v0.1.schema.json) and [schema/contract-v0.2.schema.json](./schema/contract-v0.2.schema.json); see [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md) for how to use them.
 - Thresholds, routing policies, or decision logic specific to your infrastructure — NeoMundi provides the signal; your backend owns the interpretation. See [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
 - Authentication / lifecycle management of your own NeoMundi API key (rotation, permissions) — to be documented separately if needed.
