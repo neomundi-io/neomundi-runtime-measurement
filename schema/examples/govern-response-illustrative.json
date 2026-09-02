@@ -1,0 +1,15 @@
+{
+  "request_id": "gov_9f8e7d6c5b4a...",
+  "timestamp": "2026-08-29T14:32:10.114Z",
+  "system_id": "controltower-api",
+  "governance": {
+    "decision": "ALLOW",
+    "reasons": []
+  },
+  "quality": {
+    "stability_score": 0.91
+  },
+  "runtime": {
+    "r_score": 0.04
+  }
+}

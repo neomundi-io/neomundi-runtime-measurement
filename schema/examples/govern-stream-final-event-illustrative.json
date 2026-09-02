@@ -1,0 +1,9 @@
+{
+  "response_text": "Here is the model's answer.",
+  "token_count": 42,
+  "latency_ms": 640.2,
+  "request_id": "req_abc123...",
+  "decision": "ALLOW",
+  "stability_score": 0.91,
+  "r_score": 0.04
+}

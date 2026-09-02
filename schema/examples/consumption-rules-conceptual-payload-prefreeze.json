@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.x",
+  "metric_version": "1.x",
+  "normalizer_version": "1.x",
+  "measurement_id": "...",
+  "generation_id": "...",
+  "timestamp": "...",
+  "stability_score": 0.91,
+  "delta_profile": "FLAT",
+  "delta_variation": 0.02,
+  "decision": "ALLOW",
+  "hallucination_score": 0.0,
+  "coherence_score": 0.96,
+  "total_tokens": 241
+}

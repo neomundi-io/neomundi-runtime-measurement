@@ -1,0 +1,10 @@
+{
+  "schema_version": "neomundi_observation_payload_v0.1",
+  "observation_id": "nm-syn-001",
+  "generated_at": "2026-06-28T06:42:47Z",
+  "synthetic": true,
+  "source": {},
+  "measurement": {},
+  "known_limitations": [],
+  "measurement_boundary": []
+}

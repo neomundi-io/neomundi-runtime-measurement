@@ -1,0 +1,26 @@
+# Local-only raw source material — not part of the product repository.
+# Kept on disk for provenance/audit purposes (see source-notes/SOURCE_STATUS.md)
+# but never pushed.
+/NEOMUNDI_API_INTEGRATION_GUIDE.md
+/neomundi-continuous-control-launcher-main.zip
+/neomundi-metric-contract-main.zip
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Runtime output that must never be committed
+journal/
+logs/
+output/
+
+# OS
+.DS_Store
+Thumbs.db
