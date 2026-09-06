@@ -1,83 +1,287 @@
 # NeoMundi Runtime Measurement Layer
 
-[🇬🇧 English](./README.md) · [🇫🇷 Français](./README_FR.md)
+[🇬🇧 English](./README.md) ·
+[🇫🇷 Français](./README_FR.md)
 
-## The missing measurement context for AI behavior at runtime
+## The missing measurement context for interpreting AI behavior
 
-NeoMundi measures the behavioral state of an AI system at a specific point in time, within a defined measurement framework.
+NeoMundi measures the behavioral state of an AI system at a specific
+point in time, within a defined measurement framework.
 
-Through one universal connector, this independent, timestamped and comparable measurement signal provides the context needed to interpret observations, detections, audits, diagnoses, benchmarks, insurance assessments and evidence records.
+Through a universal connector, this independent, timestamped and
+comparable measurement signal provides the context needed to interpret:
+
+- observations;
+- detections;
+- audits;
+- diagnoses;
+- comparisons;
+- insurance assessments;
+- evidence records.
+
+NeoMundi provides this context without replacing the infrastructure,
+rules or decision mechanisms of the system consuming it.
 
 **Integrate once. Strengthen multiple downstream uses.**
 
-**Your system. Your decisions. Our measurement signal.**
+> **Your system. Your decisions. Our measurement signal.**
 
-**One API call · Universal connector · No infrastructure replacement · Privacy-first · BYOK**
+### Activate the layer and obtain your first measurement
 
-> **NeoMundi measures. The consuming system interprets, governs and acts.**
+[**Follow the Quickstart guide →**](./QUICKSTART.md)
 
-```text
+**One API call · Universal connector · Infrastructure preserved**
+
+**Privacy by design · Bring your own keys**
+
+~~~text
 AI System
-   │
-   ▼
+    │
+    ▼
 NeoMundi Runtime Measurement Layer
-   │
-   ▼
-Runtime Signals
-   │
-   ▼
+    │
+    ▼
+Measurement Signals
+    │
+    ▼
 Interoperable Measurement Contract
-   │
-   ▼
-Customer / Integrator Systems
-```
+    │
+    ▼
+Customer or Integrator System
+~~~
 
 ---
 
-## What it does
+## What NeoMundi does
 
-- **Runtime measurement** — observes the behaviour of an AI system during or after execution, under declared conditions.
-- **Behavioural and operational signals** — e.g. `stability_score`, `coherence_score`, `factual_validity_signal`, `semantic_variability_signal`, `risk_signal`. See [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md).
-- **Defined semantics** — each signal's meaning, limits, and what it does *not* mean are documented at the same time it is produced, not left to inference. See [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md).
-- **Reproducibility** — measurement conditions, protocol, and versions are declared, so a measurement can be reproduced or independently challenged.
-- **Comparison over time** — signals carry explicit version information so historical observations remain interpretable as the contract evolves. See [VERSIONING.md](./VERSIONING.md).
-- **Traceability** — identifiers, timestamps, and provenance connect a measurement back to the observation that produced it.
-- **Interoperable measurement records** — measurements are exposed through a structured, machine-consumable, independently verifiable contract. See [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md).
+### Runtime measurement
 
-"Characterize" means a NeoMundi measurement comes with defined semantics, declared scope, versioning, and interpretation rules. It does **not** mean NeoMundi universally diagnoses root causes — see [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
+NeoMundi observes the behavior of an AI system during or after its
+execution, under declared conditions.
 
-## What it produces
+The measurement describes what was observed in a specific context. It
+does not define an absolute or permanent state of the system.
 
-- **Runtime signals** describing observed behaviour (stability, coherence, factual-validity, semantic-variability, risk — among others).
-- **Structured measurement records**, timestamped and identifiable back to the observation and request that produced them.
-- **Version information** distinguishing schema, metric, and normalizer versions — see [VERSIONING.md](./VERSIONING.md).
-- **Provenance** — what produced the measurement and under which protocol.
-- **Integrity information** — a payload hash and, where produced, a cryptographic signature that a third party can verify independently, without needing to trust NeoMundi's infrastructure.
-- **Interoperable, machine-readable JSON**, where supported by the interoperability layer — see [schema/](./schema/) and [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md). The interoperable measurement contract defines the structure, representation and interpretation rules of runtime measurements produced by NeoMundi.
+### Behavioral and operational signals
 
-## Why it matters
+The layer can produce different signals, including:
 
-The same measurement layer can support downstream:
+- `stability_score`;
+- `coherence_score`;
+- `factual_validity_signal`;
+- `semantic_variability_signal`;
+- `risk_signal`.
 
-- monitoring
-- audit
-- governance
-- assurance
-- optimization
+The definition, scope and limits of each signal are documented in the
+[measurement contract](./docs/MEASUREMENT_CONTRACT.md).
 
-These are downstream uses of the measurement, built and operated by the consuming system — **this repository does not implement any of them**. One measurement primitive can feed several different downstream infrastructures without those infrastructures needing to become NeoMundi systems.
+### Defined semantics
 
-## How it integrates
+Each signal is accompanied by an explicit definition.
 
-- [QUICKSTART.md](./QUICKSTART.md) — get a first measurement in a few minutes.
-- [API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md) — endpoints, payloads, headers, error handling.
-- [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md) — what each measurement and signal means, and its limits.
-- [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md) — quick-reference table: signal → meaning → what it does not mean.
-- [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md) — structure, versioning, provenance and exchange of the measurement contract.
+The documentation specifies:
+
+- what the signal measures;
+- the conditions under which it was produced;
+- how it may be interpreted;
+- what cannot be concluded from it.
+
+The corresponding rules are available in the
+[measurement interpretation table](./docs/MEASUREMENT_INTERPRETATION_TABLE.md).
+
+### Reproducibility
+
+The measurement conditions, protocol and applicable versions are
+declared.
+
+A measurement can therefore be:
+
+- reproduced;
+- compared;
+- verified;
+- independently challenged.
+
+### Comparability over time
+
+Measurements include explicit version information.
+
+This makes it possible to distinguish:
+
+- the schema version;
+- the metric version;
+- the normalizer version.
+
+Historical observations therefore remain interpretable as the contract
+evolves.
+
+See the
+[versioning documentation](./VERSIONING.md).
+
+### Traceability
+
+Identifiers, timestamps and provenance information connect each
+measurement to the observation that produced it.
+
+### Interoperability
+
+Measurements are exposed as structured, machine-readable records.
+
+The interoperable contract allows customer infrastructures to receive,
+store, exchange and use the signal without becoming NeoMundi systems.
+
+See the
+[interoperability documentation](./docs/INTEROPERABILITY.md).
+
+### Independent verifiability
+
+When these elements are produced, the record may contain:
+
+- a cryptographic hash of the content;
+- a verifiable signature;
+- the information required to verify its integrity.
+
+A third party can therefore verify the integrity of a record without
+having to trust NeoMundi’s infrastructure.
+
+---
+
+## What NeoMundi produces
+
+NeoMundi produces measured behavioral context that is structured and
+machine-readable.
+
+### Measurement signals
+
+The signals describe the observed behavior of the AI system under the
+declared conditions.
+
+They may include information about:
+
+- stability;
+- coherence;
+- factual validity;
+- semantic variability;
+- observed risk.
+
+### Structured records
+
+Each measurement can be linked to:
+
+- a request;
+- an observation;
+- a system;
+- a specific point in time;
+- a declared protocol.
+
+### Version information
+
+The record distinguishes between schema, metric and normalization
+mechanism versions.
+
+### Provenance information
+
+Provenance indicates what produced the measurement and under which
+protocol.
+
+### Integrity information
+
+The record may contain a content hash and a verifiable cryptographic
+signature.
+
+### An interoperable JSON contract
+
+Measurements can be exposed in a structured, versioned and
+machine-readable format.
+
+The schemas are available in the
+[`schema`](./schema/)
+directory.
+
+---
+
+## Why this context matters
+
+A raw observation is not always enough to understand the behavioral
+state of the system that produced it.
+
+NeoMundi adds the measurement context needed to interpret that
+observation at a specific point in time.
+
+The same measurement primitive can support multiple downstream uses:
+
+- observability;
+- drift detection;
+- audit;
+- diagnosis;
+- comparison;
+- governance;
+- insurance;
+- optimization;
+- orchestration;
+- control;
+- creation of evidence records.
+
+These uses are built and operated by the consuming system.
+
+NeoMundi provides the measurement signal. The consuming system retains
+its architecture, rules and decision authority.
+
+> **One measurement primitive. Multiple applications.**
+>
+> **Multiple infrastructures, without replacing them.**
+
+---
+
+## How to integrate NeoMundi
+
+Integration relies on a common interface that allows different
+infrastructures to consume the same measurement contract.
+
+### Quickstart
+
+[**Activate the layer and obtain your first measurement →**](./QUICKSTART.md)
+
+The Quickstart guide presents the shortest path for connecting a system
+and obtaining a first measurement.
+
+### API integration guide
+
+The
+[API integration guide](./API_INTEGRATION_GUIDE.md)
+describes:
+
+- endpoints;
+- payloads;
+- headers;
+- authentication;
+- error handling;
+- response processing.
+
+### Measurement contract
+
+The
+[measurement contract](./docs/MEASUREMENT_CONTRACT.md)
+defines the meaning, scope and limits of the signals.
+
+### Interpretation table
+
+The
+[measurement interpretation table](./docs/MEASUREMENT_INTERPRETATION_TABLE.md)
+indicates what may and may not be concluded from a signal.
+
+### Interoperability contract
+
+The
+[interoperability documentation](./docs/INTEROPERABILITY.md)
+describes the structure, versioning, provenance and exchange of the
+measurement.
+
+---
 
 ## Architectural boundary
 
 > **NeoMundi measures.**
+>
 > **The consuming system interprets, governs and acts.**
 
 **Measurement ≠ Interpretation ≠ Policy ≠ Execution**
@@ -89,49 +293,151 @@ The NeoMundi Runtime Measurement Layer is not:
 - a policy engine;
 - a decision engine;
 - a monitoring dashboard;
-- a `.exe` application;
-- a business application.
+- a business application;
+- an autonomous blocking or authorization mechanism.
 
-Monitoring, audit, governance, assurance, and optimization are downstream uses of the measurement — not this product. NeoMundi does not decide `ALLOW`, `BLOCK`, `STOP`, or any other operational or execution consequence, and a NeoMundi measurement does not itself constitute proof of truth, safety, compliance, or admissibility. See [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md).
+NeoMundi does not decide:
+
+- `ALLOW`;
+- `BLOCK`;
+- `STOP`;
+- `ROUTE`;
+- or any other operational consequence.
+
+A NeoMundi measurement does not, by itself, constitute proof of truth,
+safety, compliance or admissibility.
+
+It provides independent, timestamped, traceable and comparable
+behavioral context that can strengthen the systems responsible for
+these functions.
+
+See the documentation on
+[consumer boundaries](./docs/CONSUMER_BOUNDARIES.md).
 
 ---
 
-## Documentation map
+## Integration principles
 
-| Document | Purpose |
-|---|---|
-| [QUICKSTART.md](./QUICKSTART.md) | Get a first measurement in a few minutes |
-| [API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md) | Endpoints, payloads, headers, error handling |
-| [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md) | What each measurement and signal means, and its limits |
-| [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md) | Quick-reference table: signal → meaning → what it does not mean |
-| [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md) | Structure, versioning, provenance and exchange of the measurement contract |
-| [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md) | The boundary between measurement, interpretation, policy and execution |
-| [VERSIONING.md](./VERSIONING.md) | `schema_version`, `metric_version`, `normalizer_version` |
-| [CHANGELOG.md](./CHANGELOG.md) | Change history |
-| [schema/](./schema/) | Known payload examples, labelled by status (real signed / illustrative / pre-freeze) |
-| [reference/python/](./reference/python/) | Minimal, non-normative reference integration starter |
-| [source-notes/SOURCE_STATUS.md](./source-notes/SOURCE_STATUS.md) | What is normative, experimental, pre-freeze, or contradictory in the sources behind this repository |
+### Infrastructure preserved
 
-## Status
+NeoMundi integrates with existing infrastructure without requiring its
+replacement.
 
-This repository documents a measurement layer whose contract is still partly in **Draft** and, for some signals, explicitly **experimental / pre-freeze**. Every document above states its own status. Nothing here should be read as a finalized, frozen specification unless it says so explicitly.
+### Responsibility preserved
 
-## Future architecture
+The consuming system retains:
 
-This repository is the measurement primitive only. Layers that act on the measurement — actionability, compliance evidence, insurance evidence, change assurance, and other applications — are intentionally kept out of this repository and will live in separate, dependent repositories.
+- its rules;
+- its thresholds;
+- its policies;
+- its decisions;
+- its actions.
 
-```text
+### Privacy by design
+
+The integration is designed to limit exchanges to the elements required
+for measurement.
+
+### Bring your own keys
+
+The consuming system retains control over its keys and provider access.
+
+### Independent consumption
+
+The same signal can be consumed by multiple infrastructures without
+imposing a shared governance model or interpretation.
+
+---
+
+## Documentation
+
+### Get started
+
+[QUICKSTART.md](./QUICKSTART.md)
+
+Activate the layer and obtain a first measurement.
+
+### Integrate the API
+
+[API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md)
+
+Understand the endpoints, payloads, headers and error-handling
+mechanisms.
+
+### Understand the measurements
+
+[docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md)
+
+Understand the meaning, scope and limits of each measurement.
+
+### Interpret the signals
+
+[docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md)
+
+Identify what may and may not be concluded from a signal.
+
+### Consume the interoperable contract
+
+[docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md)
+
+Understand the structure, versioning, provenance and exchange of
+measurements.
+
+### Respect the usage boundaries
+
+[docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md)
+
+Distinguish measurement, interpretation, policy and execution.
+
+### Understand versioning
+
+[VERSIONING.md](./VERSIONING.md)
+
+Distinguish between schema, metric and normalizer versions.
+
+### Review product changes
+
+[CHANGELOG.md](./CHANGELOG.md)
+
+Review the product’s change history.
+
+---
+
+## Product architecture
+
+This repository contains only the NeoMundi measurement primitive.
+
+Layers that interpret the measurement or act on the signal are
+intentionally separated.
+
+~~~text
 neomundi-runtime-measurement
-        ↑
-        │ dependency
-neomundi-actionability
-        ↑
-        │
-solution-specific layers
-        ├── compliance evidence
-        ├── insurance evidence
-        ├── change assurance
-        └── other applications
-```
+              │
+              ▼
+      neomundi-actionability
+              │
+              ▼
+      Specialized Applications
+~~~
 
-**One measurement primitive. Multiple applications.**
+These applications may include:
+
+- compliance;
+- insurance;
+- governance;
+- orchestration;
+- diagnosis;
+- decision support;
+- change assurance.
+
+This separation protects the neutrality of the measurement and allows
+multiple infrastructures to consume the same signal according to their
+own rules.
+
+---
+
+## Founding principle
+
+> **One measurement primitive. Multiple applications.**
+>
+> **Your system. Your decisions. Our measurement signal.**
