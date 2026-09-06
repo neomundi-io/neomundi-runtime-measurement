@@ -2,11 +2,17 @@
 
 [🇬🇧 English](./README.md) · [🇫🇷 Français](./README_FR.md)
 
-**Measure, characterize and trace AI behavior in production.**
+## The missing measurement context for AI behavior at runtime
 
-Produce reproducible, machine-readable and independently verifiable measurement evidence for monitoring, audit, governance, assurance and optimization.
+NeoMundi measures the behavioral state of an AI system at a specific point in time, within a defined measurement framework.
 
-**Defined semantics · Comparable over time · Structured JSON · Timestamped · Versioned · Hash & signature verifiable**
+Through one universal connector, this independent, timestamped and comparable measurement signal provides the context needed to interpret observations, detections, audits, diagnoses, benchmarks, insurance assessments and evidence records.
+
+**Integrate once. Strengthen multiple downstream uses.**
+
+**Your system. Your decisions. Our measurement signal.**
+
+**One API call · Universal connector · No infrastructure replacement · Privacy-first · BYOK**
 
 > **NeoMundi measures. The consuming system interprets, governs and acts.**
 
