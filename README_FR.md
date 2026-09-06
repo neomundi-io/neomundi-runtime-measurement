@@ -1,30 +1,35 @@
-# NeoMundi Runtime Measurement Layer
+# Couche de mesure à l’exécution NeoMundi
 
 [🇬🇧 English](./README.md) · [🇫🇷 Français](./README_FR.md)
 
-**Mesurer, caractériser et tracer le comportement des systèmes d'IA en production.**
+## Le contexte de mesure manquant pour interpréter le comportement des IA à l’exécution
 
-Produire des preuves de mesure reproductibles, lisibles par machine et vérifiables indépendamment pour le monitoring, l'audit, la gouvernance, l'assurance et l'optimisation.
+NeoMundi mesure l’état comportemental d’un système d’IA à un instant précis, au sein d’un cadre de mesure défini.
 
-**Sémantique définie · Comparable dans le temps · JSON structuré · Horodaté · Versionné · Hash & signature vérifiables**
+Grâce à un connecteur universel, ce signal de mesure indépendant, horodaté et comparable fournit le contexte nécessaire pour interpréter les observations, détections, audits, diagnostics, comparaisons, évaluations assurantielles et éléments de preuve.
 
-> **NeoMundi mesure. Le système consommateur interprète, gouverne et agit.**
+**Une seule intégration. De multiples usages renforcés en aval.**
+
+**Votre système. Vos décisions. Notre signal de mesure.**
+
+[**Obtenez votre première mesure →**](./QUICKSTART.md)
+
+**Un appel API · Connecteur universel · Aucun remplacement d’infrastructure · Confidentialité dès la conception · Vos propres clés**
 
 ```text
-Système d'IA
+Système d’IA
    │
    ▼
-NeoMundi Runtime Measurement Layer
+Couche de mesure à l’exécution NeoMundi
    │
    ▼
-Signaux runtime
+Signaux à l’exécution
    │
    ▼
-Contrat interopérable de mesure
+Contrat de mesure interopérable
    │
    ▼
-Systèmes clients / intégrateurs
-```
+Systèmes du client ou de l’intégrateur
 
 ---
 
