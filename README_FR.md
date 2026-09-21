@@ -20,7 +20,7 @@ consomme.
 ### Obtenez votre première mesure
 
 1. **Créez votre compte et votre clé API NeoMundi**  
-   [Ouvrir la plateforme NeoMundi →](https://controlotower.neomundi.io/welcome)
+   [Ouvrir la plateforme NeoMundi →](https://controltower.neomundi.io/welcome)
 
 2. **Connectez votre système à l’API de mesure**  
    Commencez par le [Quickstart](./QUICKSTART.md), puis consultez le
