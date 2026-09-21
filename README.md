@@ -3,51 +3,58 @@
 [🇬🇧 English](./README.md) ·
 [🇫🇷 Français](./README_FR.md)
 
-## The missing measurement context for interpreting AI behavior
+## Measure AI behavior with context you can reuse
 
-NeoMundi measures the behavioral state of an AI system at a specific
-point in time, within a defined measurement framework.
+NeoMundi measures the observable behavioral state of an AI system at a
+specific point in time and returns a structured, timestamped and comparable
+measurement signal.
 
-Through a universal connector, this independent, timestamped and
-comparable measurement signal provides the context needed to interpret:
-
-- observations;
-- detections;
-- audits;
-- diagnoses;
-- comparisons;
-- insurance assessments;
-- evidence records.
-
-NeoMundi provides this context without replacing the infrastructure,
-rules or decision mechanisms of the system consuming it.
+This signal adds context to observations, detections, audits, diagnoses,
+comparisons, insurance assessments and evidence records without replacing
+the infrastructure, rules or decision mechanisms of the consuming system.
 
 **Integrate once. Strengthen multiple downstream uses.**
 
 > **Your system. Your decisions. Our measurement signal.**
 
-### Activate the layer and obtain your first measurement
+### Obtain your first measurement
 
-[**Follow the Quickstart guide →**](./QUICKSTART.md)
+1. **Create your account and NeoMundi API key**  
+   [Open the NeoMundi platform →](https://controlotower.neomundi.io/welcome)
 
-**One API call · Universal connector · Infrastructure preserved**
+2. **Connect your system to the measurement API**  
+   Start with the [Quickstart](./QUICKSTART.md), then use the
+   [API integration guide](./API_INTEGRATION_GUIDE.md) for endpoints,
+   authentication, payloads and error handling.
 
-**Privacy by design · Bring your own keys**
+3. **Receive and preserve the measurement**  
+   Store the returned identifier and measurement record. When another system
+   needs to consume the signal, use the
+   [interoperability documentation](./docs/INTEROPERABILITY.md) and the
+   versioned JSON schemas in [`schema/`](./schema/).
+
+**One measurement API · Existing infrastructure preserved · Machine-readable output**
+
+**Privacy by design · NeoMundi and provider keys remain separate**
+
+In direct observation mode, your system calls its AI provider and sends the
+observed execution to NeoMundi for measurement. A separate streaming path is
+available when NeoMundi orchestrates provider generation.
 
 ~~~text
 AI System
     │
     ▼
-NeoMundi Runtime Measurement Layer
+NeoMundi Measurement API
     │
     ▼
-Measurement Signals
+Structured Measurement Signal
     │
     ▼
-Interoperable Measurement Contract
+Interoperable JSON Contract
     │
     ▼
-Customer or Integrator System
+Customer or Partner System
 ~~~
 
 ---
@@ -234,8 +241,9 @@ its architecture, rules and decision authority.
 
 ## How to integrate NeoMundi
 
-Integration relies on a common interface that allows different
-infrastructures to consume the same measurement contract.
+Integration relies on the NeoMundi API and a versioned interoperability
+contract that allow different infrastructures to consume the same
+measurement signal.
 
 ### Quickstart
 
@@ -411,13 +419,16 @@ Layers that interpret the measurement or act on the signal are
 intentionally separated.
 
 ~~~text
-neomundi-runtime-measurement
+NeoMundi Runtime Measurement Layer
               │
               ▼
-      neomundi-actionability
+Interoperable Measurement Signal
               │
               ▼
-      Specialized Applications
+Customer and Partner Systems
+              │
+              ▼
+Interpretation · Policy · Decision · Action
 ~~~
 
 These applications may include:
