@@ -20,7 +20,7 @@ the infrastructure, rules or decision mechanisms of the consuming system.
 ### Obtain your first measurement
 
 1. **Create your account and NeoMundi API key**  
-   [Open the NeoMundi platform →](https://controlotower.neomundi.io/welcome)
+   [Open the NeoMundi platform →](https://controltower.neomundi.io/welcome)
 
 2. **Connect your system to the measurement API**  
    Start with the [Quickstart](./QUICKSTART.md), then use the
