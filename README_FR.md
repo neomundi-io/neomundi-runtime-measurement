@@ -1,3 +1,7 @@
+> **Deux parcours :** intégrer le signal de mesure dans votre infrastructure avec l'API, le SDK ou le MCP, ou [bénéficier de Station](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md) comme instrument hébergé. Le tableau de bord reste prévu ; voir les conditions d'accès et fonctions disponibles.
+>
+> [Comprendre les mesures](https://github.com/neomundi-io/neomundi-metric-contract) · [Données et confidentialité](https://github.com/neomundi-io/neomundi-io-data-protection/blob/main/README_FR.md)
+
 # NeoMundi Runtime Measurement Layer
 
 [🇬🇧 English](./README.md) ·
