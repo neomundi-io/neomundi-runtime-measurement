@@ -1,454 +1,161 @@
-> **Deux parcours :** intégrer le signal de mesure dans votre infrastructure avec l'API, le SDK ou le MCP, ou [bénéficier de Station](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md) comme instrument hébergé. Le tableau de bord reste prévu ; voir les conditions d'accès et fonctions disponibles.
->
-> [Comprendre les mesures](https://github.com/neomundi-io/neomundi-metric-contract) · [Données et confidentialité](https://github.com/neomundi-io/neomundi-io-data-protection/blob/main/README_FR.md)
+<div align="center">
 
-# NeoMundi Runtime Measurement Layer
+<sub><a href="README.md">English</a> · <b>Français</b></sub>
 
-[🇬🇧 English](./README.md) ·
-[🇫🇷 Français](./README_FR.md)
+# NeoMundi Runtime Measurement
 
-## Mesurez le comportement de l’IA avec un contexte réutilisable
+## Transformez le comportement de l’IA en signaux mesurables.
 
-NeoMundi mesure l’état comportemental observable d’un système d’IA à un
-instant donné et renvoie un signal de mesure structuré, horodaté et comparable.
+**Une infrastructure indépendante de mesure de l’IA pour vos systèmes existants.**
 
-Ce signal contextualise les observations, détections, audits, diagnostics,
-comparaisons, évaluations assurantielles et éléments de preuve, sans remplacer
-l’infrastructure, les règles ni les mécanismes de décision du système qui le
-consomme.
+[![Couche : mesure pendant l'exécution](https://img.shields.io/badge/couche-mesure_pendant_l'exécution-475569?style=flat-square)](#fonctionnement)
+[![REST : parcours principal](https://img.shields.io/badge/REST-parcours_principal-0f766e?style=flat-square)](QUICKSTART.md)
+[![SSE : alternatif](https://img.shields.io/badge/SSE-parcours_alternatif-2563eb?style=flat-square)](API_INTEGRATION_GUIDE.md)
+[![Interop : v0.1 signée](https://img.shields.io/badge/Interop-v0.1_signée-0f766e?style=flat-square)](docs/INTEROPERABILITY.md)
+[![SDK et MCP : voir statuts](https://img.shields.io/badge/SDK_%26_MCP-voir_statuts-a16207?style=flat-square)](#statut-des-intégrations)
 
-**Intégrez une fois. Renforcez plusieurs usages en aval.**
+**[Commencer](START_HERE_FR.md)** · [Première mesure](QUICKSTART.md) · [Guide API](API_INTEGRATION_GUIDE.md) · [Signaux](docs/MEASUREMENT_CONTRACT.md) · [Interopérabilité](docs/INTEROPERABILITY.md) · [Limites](#limites-connues)
 
 > **Votre système. Vos décisions. Notre signal de mesure.**
 
-### Obtenez votre première mesure
+</div>
 
-1. **Créez votre compte et votre clé API NeoMundi**  
-   [Ouvrir la plateforme NeoMundi →](https://controltower.neomundi.io/welcome)
+---
 
-2. **Connectez votre système à l’API de mesure**  
-   Commencez par le [Quickstart](./QUICKSTART.md), puis consultez le
-   [guide d’intégration API](./API_INTEGRATION_GUIDE.md) pour les endpoints,
-   l’authentification, les payloads et la gestion des erreurs.
+NeoMundi mesure une exécution d’IA dans des conditions déclarées et renvoie un enregistrement structuré et horodaté. Votre système peut le conserver, comparer des observations compatibles ou demander un contrat d’interopérabilité signé.
 
-3. **Recevez et conservez la mesure**  
-   Conservez l’identifiant renvoyé et l’enregistrement de mesure. Lorsqu’un autre
-   système doit consommer le signal, utilisez la
-   [documentation d’interopérabilité](./docs/INTEROPERABILITY.md) et les schémas
-   JSON versionnés du répertoire [`schema/`](./schema/).
+NeoMundi ne décide **pas** si votre application doit autoriser, bloquer, rediriger ou approuver quoi que ce soit. L’interprétation, la politique et l’exécution restent sous l’autorité du système consommateur.
 
-**Une API de mesure · Infrastructure existante préservée · Sortie lisible par machine**
+```text
+Mesure ≠ Interprétation ≠ Politique ≠ Exécution
+```
 
-**Privacy by design · Les clés NeoMundi et fournisseur restent distinctes**
+## Choisissez votre parcours
 
-En mode d’observation directe, votre système appelle son fournisseur d’IA et
-transmet l’exécution observée à NeoMundi pour la mesurer. Un parcours de streaming
-distinct est disponible lorsque NeoMundi orchestre la génération du fournisseur.
+| Objectif | Parcours | Point de départ |
+|---|---|---|
+| Mesurer une réponse déjà produite | REST `POST /v1/govern` | [Quickstart](QUICKSTART.md) |
+| Générer via NeoMundi et recevoir un flux | SSE `POST /v1/govern/stream` | [Guide API](API_INTEGRATION_GUIDE.md#3-step-1--v1governstream-get-the-model-response) |
+| Intégrer depuis Python | SDK Python | [SDK](https://github.com/neomundi-io/neomundi-python-sdk) |
+| Mesurer depuis un agent | Connecteur MCP | [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp) |
+| Valider un enregistrement portable | JSON Schema et signature | [Interopérabilité](docs/INTEROPERABILITY.md) |
+| Utiliser l’instrument hébergé | NeoMundi Station | [Station](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md) |
 
-~~~text
-Système d’IA
-    │
-    ▼
+## Obtenez votre première mesure
+
+Le parcours principal mesure une exécution que vous détenez déjà. Il ne demande pas à NeoMundi de générer la réponse et ne nécessite aucune clé API de fournisseur.
+
+```bash
+curl -X POST "https://api.neomundi.io/v1/govern" \
+  -H "X-API-Key: YOUR_NEOMUNDI_KEY" \
+  -H "Content-Type: application/json; charset=utf-8" \
+  -d '{
+    "source_type": "llm",
+    "mode": "OBS",
+    "llm_prompt": "Quelle est la capitale de la France ?",
+    "llm_response": "Paris.",
+    "raw_metrics": {"token_count": 1, "latency_ms": 120}
+  }'
+```
+
+La route et les champs sont confirmés par les documents d’intégration existants. Aucune valeur de réponse n’est affichée, car cette refonte n’a effectué aucun nouvel appel live. Conservez la réponse brute, ses versions et tous les états partiels ou indisponibles ; ne remplacez jamais une valeur absente par zéro.
+
+[**Suivre le parcours REST complet →**](QUICKSTART.md)
+
+## Ce que mesure NeoMundi
+
+NeoMundi produit des signaux comportementaux et opérationnels bornés pour une observation. Selon la version déployée et les contrôles disponibles, ils peuvent concerner la stabilité, la cohérence, la factualité, la variabilité sémantique ou le risque.
+
+Le vocabulaire du Metric Contract, les travaux expérimentaux `G`/`g_score`/`∆G` et les champs RGC sont distincts. Aucun mapping non documenté n’est sous-entendu. Consultez le [contrat de mesure](docs/MEASUREMENT_CONTRACT.md) et la [table d’interprétation](docs/MEASUREMENT_INTERPRETATION_TABLE.md).
+
+## Fonctionnement
+
+```text
+Votre exécution d’IA
+       ↓
 API de mesure NeoMundi
-    │
-    ▼
-Signal de mesure structuré
-    │
-    ▼
-Contrat JSON interopérable
-    │
-    ▼
-Système client ou partenaire
-~~~
+       ↓
+Enregistrement de mesure versionné
+       ├──── contrat d’interopérabilité signé facultatif
+       ↓
+Votre stockage, interprétation, politique et action
+```
 
----
+L’API contient un champ historique nommé `governance.decision`. Les valeurs `ALLOW`, `FLAG`, `REROUTE`, `HUMAN_REVIEW` ou `STOP` sont des signaux de mesure—ni permissions, ni commandes, ni actions exécutées par NeoMundi. Le schéma impose `execution_permission_changed: false`.
 
-## Ce que fait NeoMundi
+## Ce que reçoit votre système
 
-### Mesure en cours d’exécution
+Une réponse peut contenir un identifiant, un horodatage, des versions, la provenance, des valeurs mesurées, l’état, la couverture, les limites et des champs consultatifs. Pour un échange portable, demandez un contrat JSON versionné, validez-le avec le schéma correspondant et vérifiez son empreinte SHA-256 et sa signature Ed25519/JWS.
 
-NeoMundi observe le comportement d’un système d’IA pendant ou après son
-exécution, dans des conditions déclarées.
+## Statut des intégrations
 
-La mesure décrit ce qui a été observé dans un contexte précis. Elle ne définit
-pas un état absolu ou permanent du système.
+Statuts vérifiés le **30 octobre 2026**.
 
-### Signaux comportementaux et opérationnels
+| Parcours | Statut | Preuve et limite |
+|---|---|---|
+| API REST | **Disponible ; exemples qualifiés** | Route et champs confirmés. Valeurs illustratives jusqu’à leur capture live. |
+| API SSE | **Alternative disponible** | NeoMundi appelle le fournisseur et reçoit son identifiant pour cet appel. |
+| SDK Python 2.0.0 | **Implémenté ; qualification live V2 en attente** | REST/SSE implémentés et tests hors ligne réussis. |
+| Plugin MCP local 0.2.0 | **Évalué en pilote** | Qualification REST/SSE bornée le 26 octobre 2026. |
+| Source MCP 0.3.0-rc.1 | **Release candidate** | Déploiement backend compagnon et nouvelle qualification requis. |
+| MCP hébergé | **Transport validé ; contrat en attente** | Les preuves locales ne qualifient pas le serveur séparé. |
+| Interop v0.1 | **Historique, signée, revérifiée** | Deux exemples passent schéma, empreinte et signature. |
+| Interop v0.2 | **Schéma disponible ; exemples illustratifs** | Fixtures valides mais explicitement non signées et non live. |
 
-La couche peut produire différents signaux, notamment :
+## Données, confidentialité et provenance
 
-- `stability_score` ;
-- `coherence_score` ;
-- `factual_validity_signal` ;
-- `semantic_variability_signal` ;
-- `risk_signal`.
+Distinguez trois frontières :
 
-La définition, la portée et les limites de chaque signal sont documentées dans
-le [contrat de mesure](./docs/MEASUREMENT_CONTRACT.md).
+1. **Données envoyées à la mesure.** REST peut inclure l’invite et la réponse. SSE transmet les paramètres et un identifiant fournisseur configuré.
+2. **Traitements internes.** Le contenu peut être traité par les évaluateurs et services activés. Conservation et destinations dépendent du déploiement.
+3. **Divulgation d’interopérabilité.** Le contrat signé exclut par conception les invites, réponses et identifiants bruts de fournisseur ou modèle.
 
-### Sémantique définie
+Un export sans texte brut ne prouve pas qu’aucun texte brut n’a été traité en amont. Consultez [Données et confidentialité](https://github.com/neomundi-io/neomundi-io-data-protection/blob/main/README_FR.md).
 
-Chaque signal est accompagné d’une définition explicite.
+## Preuves
 
-La documentation précise :
+- Deux contrats historiques v0.1 ont été revérifiés pour le schéma, l’empreinte SHA-256 et la signature Ed25519/JWS.
+- Les schémas v0.2 imposent des états partiels et indisponibles explicites.
+- Les fixtures v0.2 sont des illustrations non signées, pas des observations de production.
+- Le vérificateur Python a été contrôlé avec les exemples signés v0.1.
+- Le code d’exemple de bout en bout n’est pas qualifié comme client de production.
 
-- ce que le signal mesure ;
-- les conditions dans lesquelles il a été produit ;
-- la manière dont il peut être interprété ;
-- ce qui ne peut pas en être conclu.
+## Limites architecturales
 
-Les règles correspondantes sont disponibles dans la
-[table d’interprétation des mesures](./docs/MEASUREMENT_INTERPRETATION_TABLE.md).
+NeoMundi ne fournit ni verdict universel de vérité, ni certification de sécurité, ni détermination de conformité, ni moteur de politique, ni exécution automatique.
 
-### Reproductibilité
-
-Les conditions de mesure, le protocole et les versions applicables sont
-déclarés.
-
-Une mesure peut donc être :
-
-- reproduite ;
-- comparée ;
-- vérifiée ;
-- contestée de manière indépendante.
-
-### Comparabilité dans le temps
-
-Les mesures incluent des informations de version explicites.
-
-Il est ainsi possible de distinguer :
-
-- la version du schéma ;
-- la version de la métrique ;
-- la version du normaliseur.
-
-Les observations historiques restent donc interprétables à mesure que le
-contrat évolue.
-
-Consultez la
-[documentation sur le versionnement](./VERSIONING.md).
-
-### Traçabilité
-
-Les identifiants, horodatages et informations de provenance relient chaque
-mesure à l’observation qui l’a produite.
-
-### Interopérabilité
-
-Les mesures sont exposées sous forme d’enregistrements structurés et lisibles
-par machine.
-
-Le contrat interopérable permet aux infrastructures clientes de recevoir,
-conserver, échanger et utiliser le signal sans devenir des systèmes NeoMundi.
-
-Consultez la
-[documentation d’interopérabilité](./docs/INTEROPERABILITY.md).
-
-### Vérifiabilité indépendante
-
-Lorsque ces éléments sont produits, l’enregistrement peut contenir :
-
-- une empreinte cryptographique du contenu ;
-- une signature vérifiable ;
-- les informations nécessaires pour vérifier son intégrité.
-
-Un tiers peut ainsi vérifier l’intégrité d’un enregistrement sans avoir à faire
-confiance à l’infrastructure de NeoMundi.
-
----
-
-## Ce que produit NeoMundi
-
-NeoMundi produit un contexte comportemental mesuré, structuré et lisible par
-machine.
-
-### Signaux de mesure
-
-Les signaux décrivent le comportement observé du système d’IA dans les
-conditions déclarées.
-
-Ils peuvent inclure des informations sur :
-
-- la stabilité ;
-- la cohérence ;
-- la validité factuelle ;
-- la variabilité sémantique ;
-- le risque observé.
-
-### Enregistrements structurés
-
-Chaque mesure peut être reliée à :
-
-- une requête ;
-- une observation ;
-- un système ;
-- un instant précis ;
-- un protocole déclaré.
-
-### Informations de version
-
-L’enregistrement distingue les versions du schéma, de la métrique et du
-mécanisme de normalisation.
-
-### Informations de provenance
-
-La provenance indique ce qui a produit la mesure et selon quel protocole.
-
-### Informations d’intégrité
-
-L’enregistrement peut contenir une empreinte du contenu et une signature
-cryptographique vérifiable.
-
-### Un contrat JSON interopérable
-
-Les mesures peuvent être exposées dans un format structuré, versionné et
-lisible par machine.
-
-Les schémas sont disponibles dans le répertoire
-[`schema`](./schema/).
-
----
-
-## Pourquoi ce contexte est important
-
-Une observation brute ne suffit pas toujours à comprendre l’état
-comportemental du système qui l’a produite.
-
-NeoMundi ajoute le contexte de mesure nécessaire pour interpréter cette
-observation à un instant précis.
-
-Une même primitive de mesure peut servir à plusieurs usages en aval :
-
-- observabilité ;
-- détection de dérive ;
-- audit ;
-- diagnostic ;
-- comparaison ;
-- gouvernance ;
-- assurance ;
-- optimisation ;
-- orchestration ;
-- contrôle ;
-- création d’éléments de preuve.
-
-Ces usages sont construits et exploités par le système consommateur.
-
-NeoMundi fournit le signal de mesure. Le système consommateur conserve son
-architecture, ses règles et son autorité de décision.
-
-> **Une primitive de mesure. Plusieurs applications.**
->
-> **Plusieurs infrastructures, sans les remplacer.**
-
----
-
-## Comment intégrer NeoMundi
-
-L’intégration repose sur l’API NeoMundi et sur un contrat d’interopérabilité
-versionné qui permettent à différentes infrastructures de consommer le même
-signal de mesure.
-
-### Quickstart
-
-[**Activez la couche et obtenez votre première mesure →**](./QUICKSTART.md)
-
-Le guide Quickstart présente le chemin le plus court pour connecter un système
-et obtenir une première mesure.
-
-### Guide d’intégration API
-
-Le
-[guide d’intégration API](./API_INTEGRATION_GUIDE.md)
-décrit :
-
-- les endpoints ;
-- les payloads ;
-- les headers ;
-- l’authentification ;
-- la gestion des erreurs ;
-- le traitement des réponses.
-
-### Contrat de mesure
-
-Le
-[contrat de mesure](./docs/MEASUREMENT_CONTRACT.md)
-définit la signification, la portée et les limites des signaux.
-
-### Table d’interprétation
-
-La
-[table d’interprétation des mesures](./docs/MEASUREMENT_INTERPRETATION_TABLE.md)
-indique ce qui peut et ne peut pas être conclu d’un signal.
-
-### Contrat d’interopérabilité
-
-La
-[documentation d’interopérabilité](./docs/INTEROPERABILITY.md)
-décrit la structure, le versionnement, la provenance et l’échange de la mesure.
-
----
-
-## Limite architecturale
-
-> **NeoMundi mesure.**
->
-> **Le système consommateur interprète, gouverne et agit.**
-
-**Mesure ≠ Interprétation ≠ Politique ≠ Exécution**
-
-La NeoMundi Runtime Measurement Layer n’est pas :
-
-- une plateforme de gouvernance de l’IA ;
-- un moteur de conformité ;
-- un moteur de politiques ;
-- un moteur de décision ;
-- un tableau de bord de supervision ;
-- une application métier ;
-- un mécanisme autonome de blocage ou d’autorisation.
-
-NeoMundi ne décide pas :
-
-- `ALLOW` ;
-- `BLOCK` ;
-- `STOP` ;
-- `ROUTE` ;
-- ni aucune autre conséquence opérationnelle.
-
-Une mesure NeoMundi ne constitue pas, à elle seule, une preuve de vérité, de
-sécurité, de conformité ou d’admissibilité.
-
-Elle fournit un contexte comportemental indépendant, horodaté, traçable et
-comparable qui peut renforcer les systèmes responsables de ces fonctions.
-
-Consultez la documentation sur les
-[limites du système consommateur](./docs/CONSUMER_BOUNDARIES.md).
-
----
-
-## Principes d’intégration
-
-### Infrastructure préservée
-
-NeoMundi s’intègre à l’infrastructure existante sans exiger son remplacement.
-
-### Responsabilité préservée
-
-Le système consommateur conserve :
-
-- ses règles ;
-- ses seuils ;
-- ses politiques ;
-- ses décisions ;
-- ses actions.
-
-### Privacy by design
-
-L’intégration est conçue pour limiter les échanges aux éléments nécessaires à
-la mesure.
-
-### Bring your own keys
-
-Le système consommateur conserve le contrôle de ses clés et de ses accès aux
-fournisseurs.
-
-### Consommation indépendante
-
-Le même signal peut être consommé par plusieurs infrastructures sans imposer
-un modèle de gouvernance ou une interprétation partagés.
-
----
+```text
+stabilité élevée ≠ exactitude factuelle
+FLAG ≠ erreur prouvée
+ALLOW ≠ vérité ou permission prouvée
+observation unique ≠ dérive
+```
 
 ## Documentation
 
-### Commencer
+| Document | Objet |
+|---|---|
+| [START_HERE_FR.md](START_HERE_FR.md) | Choisir un parcours d’intégration. |
+| [QUICKSTART.md](QUICKSTART.md) | Obtenir une mesure REST et un contrat facultatif. |
+| [Guide API](API_INTEGRATION_GUIDE.md) | REST, SSE, erreurs et vérification. |
+| [Contrat de mesure](docs/MEASUREMENT_CONTRACT.md) | Sens et limites des signaux. |
+| [Interopérabilité](docs/INTEROPERABILITY.md) | Contrat, versions et vérification. |
+| [Limites consommateur](docs/CONSUMER_BOUNDARIES.md) | Mesure, politique et action. |
+| [VERSIONING.md](VERSIONING.md) | Versions et différences non résolues. |
+| [schema/](schema/) | Schémas v0.1 et v0.2 faisant autorité. |
 
-[QUICKSTART.md](./QUICKSTART.md)
+## Limites connues
 
-Activez la couche et obtenez une première mesure.
-
-### Intégrer l’API
-
-[API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md)
-
-Comprenez les endpoints, les payloads, les headers et les mécanismes de gestion
-des erreurs.
-
-### Comprendre les mesures
-
-[docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md)
-
-Comprenez la signification, la portée et les limites de chaque mesure.
-
-### Interpréter les signaux
-
-[docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md)
-
-Identifiez ce qui peut et ne peut pas être conclu d’un signal.
-
-### Consommer le contrat interopérable
-
-[docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md)
-
-Comprenez la structure, le versionnement, la provenance et l’échange des
-mesures.
-
-### Respecter les limites d’utilisation
-
-[docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md)
-
-Distinguez la mesure, l’interprétation, les politiques et l’exécution.
-
-### Comprendre le versionnement
-
-[VERSIONING.md](./VERSIONING.md)
-
-Distinguez les versions du schéma, de la métrique et du normaliseur.
-
-### Consulter les évolutions du produit
-
-[CHANGELOG.md](./CHANGELOG.md)
-
-Consultez l’historique des évolutions du produit.
+- Les valeurs de réponse sont illustratives sauf mention d’un exemple réel signé.
+- Aucun mapping officiel ne réconcilie Metric Contract, vocabulaire `G` et champs RGC.
+- `metric_version` et `measurement_version` ne sont pas réconciliés.
+- Un exemple signé v0.1 combine `complete` et une couverture `0.6` ; il reste historique, pas modèle v0.2.
+- Une observation unique n’établit ni tendance ni dérive.
+- Les garanties globales de destination, conservation et effacement ne sont pas établies ici.
+- SDK, MCP local et MCP hébergé ont des états de qualification différents.
 
 ---
 
-## Architecture du produit
+**Une primitive de mesure. Plusieurs applications.**
 
-Ce dépôt contient uniquement la primitive de mesure NeoMundi.
-
-Les couches qui interprètent la mesure ou agissent à partir du signal sont
-intentionnellement séparées.
-
-~~~text
-NeoMundi Runtime Measurement Layer
-              │
-              ▼
-Signal de mesure interopérable
-              │
-              ▼
-Systèmes clients et partenaires
-              │
-              ▼
-Interprétation · Politique · Décision · Action
-~~~
-
-Ces applications peuvent notamment concerner :
-
-- la conformité ;
-- l’assurance ;
-- la gouvernance ;
-- l’orchestration ;
-- le diagnostic ;
-- l’aide à la décision ;
-- l’assurance des changements.
-
-Cette séparation protège la neutralité de la mesure et permet à plusieurs
-infrastructures de consommer le même signal selon leurs propres règles.
-
----
-
-## Principe fondateur
-
-> **Une primitive de mesure. Plusieurs applications.**
->
 > **Votre système. Vos décisions. Notre signal de mesure.**
