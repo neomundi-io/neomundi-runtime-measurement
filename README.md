@@ -1,458 +1,164 @@
-> **Choose your path:** integrate the measurement signal into your own infrastructure with the API, SDK or MCP, or [explore Station](https://github.com/neomundi-io/neomundi-station-public) to use the hosted instrument. The dashboard is a planned capability; see Station's current access and availability.
->
-> [Understand the measurements](https://github.com/neomundi-io/neomundi-metric-contract) · [Data flows and confidentiality](https://github.com/neomundi-io/neomundi-io-data-protection)
+<div align="center">
 
-# NeoMundi Runtime Measurement Layer
+<sub><b>English</b> · <a href="README_FR.md">Français</a></sub>
 
-[🇬🇧 English](./README.md) ·
-[🇫🇷 Français](./README_FR.md)
+# NeoMundi Runtime Measurement
 
-## Measure AI behavior with context you can reuse
+## Turn AI behavior into measurable signals.
 
-NeoMundi measures the observable behavioral state of an AI system at a
-specific point in time and returns a structured, timestamped and comparable
-measurement signal.
+**Independent AI measurement infrastructure for your existing systems.**
 
-This signal adds context to observations, detections, audits, diagnoses,
-comparisons, insurance assessments and evidence records without replacing
-the infrastructure, rules or decision mechanisms of the consuming system.
+[![Layer: runtime measurement](https://img.shields.io/badge/layer-runtime_measurement-475569?style=flat-square)](#how-it-works)
+[![REST: primary path](https://img.shields.io/badge/REST-primary_path-0f766e?style=flat-square)](QUICKSTART.md)
+[![SSE: alternative](https://img.shields.io/badge/SSE-alternative_path-2563eb?style=flat-square)](API_INTEGRATION_GUIDE.md)
+[![Interop: v0.1 signed](https://img.shields.io/badge/Interop-v0.1_signed-0f766e?style=flat-square)](docs/INTEROPERABILITY.md)
+[![SDK and MCP: see status](https://img.shields.io/badge/SDK_%26_MCP-see_status-a16207?style=flat-square)](#integration-status)
 
-**Integrate once. Strengthen multiple downstream uses.**
+**[Start here](START_HERE.md)** · [First measurement](QUICKSTART.md) · [API guide](API_INTEGRATION_GUIDE.md) · [Signals](docs/MEASUREMENT_CONTRACT.md) · [Interop](docs/INTEROPERABILITY.md) · [Limits](#known-limitations)
 
 > **Your system. Your decisions. Our measurement signal.**
 
-### Obtain your first measurement
+</div>
 
-1. **Create your account and NeoMundi API key**  
-   [Open the NeoMundi platform →](https://controltower.neomundi.io/welcome)
+---
 
-2. **Connect your system to the measurement API**  
-   Start with the [Quickstart](./QUICKSTART.md), then use the
-   [API integration guide](./API_INTEGRATION_GUIDE.md) for endpoints,
-   authentication, payloads and error handling.
+NeoMundi measures an AI execution under declared conditions and returns a structured, timestamped measurement record. Your system can retain the record, compare compatible observations, or request a signed interoperability contract for independent verification.
 
-3. **Receive and preserve the measurement**  
-   Store the returned identifier and measurement record. When another system
-   needs to consume the signal, use the
-   [interoperability documentation](./docs/INTEROPERABILITY.md) and the
-   versioned JSON schemas in [`schema/`](./schema/).
+NeoMundi does **not** decide whether your application should allow, block, reroute or approve anything. Interpretation, policy and execution remain with the consuming system.
 
-**One measurement API · Existing infrastructure preserved · Machine-readable output**
+```text
+Measurement ≠ Interpretation ≠ Policy ≠ Execution
+```
 
-**Privacy by design · NeoMundi and provider keys remain separate**
+## Choose your path
 
-In direct observation mode, your system calls its AI provider and sends the
-observed execution to NeoMundi for measurement. A separate streaming path is
-available when NeoMundi orchestrates provider generation.
+| Goal | Path | Start |
+|---|---|---|
+| Measure an answer you already produced | REST `POST /v1/govern` | [Quickstart](QUICKSTART.md) |
+| Generate through NeoMundi and receive streamed events | SSE `POST /v1/govern/stream` | [API guide](API_INTEGRATION_GUIDE.md#3-step-1--v1governstream-get-the-model-response) |
+| Integrate from Python | Python SDK | [SDK](https://github.com/neomundi-io/neomundi-python-sdk) |
+| Measure from an agent | MCP connector | [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp) |
+| Validate a portable record | JSON Schema + signature verification | [Interoperability](docs/INTEROPERABILITY.md) |
+| Use the hosted instrument | NeoMundi Station | [Station](https://github.com/neomundi-io/neomundi-station-public) |
 
-~~~text
-AI System
-    │
-    ▼
+## Get your first measurement
+
+The primary path measures an execution you already hold. It does not ask NeoMundi to generate the answer and does not require a provider API key.
+
+```bash
+curl -X POST "https://api.neomundi.io/v1/govern" \
+  -H "X-API-Key: YOUR_NEOMUNDI_KEY" \
+  -H "Content-Type: application/json; charset=utf-8" \
+  -d '{
+    "source_type": "llm",
+    "mode": "OBS",
+    "llm_prompt": "What is the capital of France?",
+    "llm_response": "Paris.",
+    "raw_metrics": {"token_count": 1, "latency_ms": 120}
+  }'
+```
+
+The `token_count: 1` and `latency_ms: 120` values above are illustrative placeholders, not measured data and not values captured from a live observation.\n\nThe route and request fields are confirmed by existing integration material. No response values are shown because this documentation change did not perform a new live API call. Preserve the raw response, its versions, and every partial or unavailable state; never replace a missing value with zero.
+
+[**Follow the complete REST path →**](QUICKSTART.md)
+
+## What NeoMundi measures
+
+NeoMundi reports bounded behavioral and operational signals for one observation. Depending on the deployed measurement version and available checks, records may expose signals related to stability, coherence, factuality, semantic variability or risk.
+
+The Metric Contract vocabulary, experimental `G`/`g_score`/`∆G` material and RGC fields are distinct vocabularies. No undocumented mapping is implied. Read the [Measurement Contract](docs/MEASUREMENT_CONTRACT.md) and [Interpretation Table](docs/MEASUREMENT_INTERPRETATION_TABLE.md).
+
+## How it works
+
+```text
+Your AI execution
+       ↓
 NeoMundi Measurement API
-    │
-    ▼
-Structured Measurement Signal
-    │
-    ▼
-Interoperable JSON Contract
-    │
-    ▼
-Customer or Partner System
-~~~
+       ↓
+Versioned measurement record
+       ├──── optional signed interoperability contract
+       ↓
+Your storage, interpretation, policy and action
+```
 
----
+The API includes a historical field named `governance.decision`. Values such as `ALLOW`, `FLAG`, `REROUTE`, `HUMAN_REVIEW` or `STOP` are measurement-layer signals—not permissions, commands or actions executed by NeoMundi. The interoperability schema constrains `execution_permission_changed` to `false`.
 
-## What NeoMundi does
+## What your system receives
 
-### Runtime measurement
+A response may include an identifier and timestamp, version and provenance information, measured values, status and coverage, limitations, and advisory fields. For portable exchange, request a versioned JSON contract, validate it against the matching schema, and verify its SHA-256 fingerprint and Ed25519/JWS signature.
 
-NeoMundi observes the behavior of an AI system during or after its
-execution, under declared conditions.
+## Integration status
 
-The measurement describes what was observed in a specific context. It
-does not define an absolute or permanent state of the system.
+Checked against the linked repositories on **30 October 2026**.
 
-### Behavioral and operational signals
+| Path | Status | Evidence and limit |
+|---|---|---|
+| REST API | **Available; examples qualified** | Route and fields are confirmed. Response values remain illustrative until captured live. |
+| SSE API | **Available alternative** | NeoMundi calls the provider and receives its credential for that call. Not required for an existing execution. |
+| Python SDK 2.0.0 | **Implemented; live V2 qualification pending** | REST/SSE implemented and offline tests pass; installed V2 live qualification remains pending. |
+| Local MCP plugin 0.2.0 | **Pilot-evaluated** | One bounded REST/SSE live qualification completed on 26 October 2026. |
+| MCP 0.3.0-rc.1 source | **Release candidate** | Response-schema validation added; companion backend deployment and fresh qualification required. |
+| Hosted MCP | **Transport validated; contract pending** | Local plugin evidence does not qualify the separate hosted server. |
+| Interop v0.1 | **Historical, signed, re-verified** | Two bundled examples pass schema, hash and signature checks. |
+| Interop v0.2 | **Schema available; examples illustrative** | Fixtures validate structurally but are explicitly unsigned and are not live observations. |
 
-The layer can produce different signals, including:
+## Data, privacy and provenance
 
-- `stability_score`;
-- `coherence_score`;
-- `factual_validity_signal`;
-- `semantic_variability_signal`;
-- `risk_signal`.
+Keep three boundaries separate:
 
-The definition, scope and limits of each signal are documented in the
-[measurement contract](./docs/MEASUREMENT_CONTRACT.md).
+1. **Data submitted for measurement.** REST may include prompt and response text. SSE sends generation arguments and a configured provider credential upstream.
+2. **Internal processing.** Submitted material may be processed by enabled evaluators and services. Retention and destinations depend on the deployment.
+3. **Interoperability disclosure.** The signed exchange contract excludes raw prompts, responses and provider/model identifiers by schema design.
 
-### Defined semantics
+An export without raw text does not prove no raw text was processed upstream. Review [Data and confidentiality](https://github.com/neomundi-io/neomundi-io-data-protection).
 
-Each signal is accompanied by an explicit definition.
+## Evidence
 
-The documentation specifies:
+- Two historical v0.1 contracts were independently re-verified for schema, SHA-256 hash and Ed25519/JWS signature.
+- v0.2 schemas enforce explicit partial and unavailable states.
+- v0.2 fixtures are unsigned illustrations, not production observations.
+- The Python verifier was cross-checked on the signed v0.1 examples.
+- End-to-end example code is not qualified as a production client.
 
-- what the signal measures;
-- the conditions under which it was produced;
-- how it may be interpreted;
-- what cannot be concluded from it.
+See [source status](source-notes/SOURCE_STATUS.md) for provenance and evidentiary weight.
 
-The corresponding rules are available in the
-[measurement interpretation table](./docs/MEASUREMENT_INTERPRETATION_TABLE.md).
+## Architectural boundaries
 
-### Reproducibility
+NeoMundi does not provide a universal truth verdict, safety certification, compliance determination, policy engine or automatic enforcement mechanism.
 
-The measurement conditions, protocol and applicable versions are
-declared.
-
-A measurement can therefore be:
-
-- reproduced;
-- compared;
-- verified;
-- independently challenged.
-
-### Comparability over time
-
-Measurements include explicit version information.
-
-This makes it possible to distinguish:
-
-- the schema version;
-- the metric version;
-- the normalizer version.
-
-Historical observations therefore remain interpretable as the contract
-evolves.
-
-See the
-[versioning documentation](./VERSIONING.md).
-
-### Traceability
-
-Identifiers, timestamps and provenance information connect each
-measurement to the observation that produced it.
-
-### Interoperability
-
-Measurements are exposed as structured, machine-readable records.
-
-The interoperable contract allows customer infrastructures to receive,
-store, exchange and use the signal without becoming NeoMundi systems.
-
-See the
-[interoperability documentation](./docs/INTEROPERABILITY.md).
-
-### Independent verifiability
-
-When these elements are produced, the record may contain:
-
-- a cryptographic hash of the content;
-- a verifiable signature;
-- the information required to verify its integrity.
-
-A third party can therefore verify the integrity of a record without
-having to trust NeoMundi’s infrastructure.
-
----
-
-## What NeoMundi produces
-
-NeoMundi produces measured behavioral context that is structured and
-machine-readable.
-
-### Measurement signals
-
-The signals describe the observed behavior of the AI system under the
-declared conditions.
-
-They may include information about:
-
-- stability;
-- coherence;
-- factual validity;
-- semantic variability;
-- observed risk.
-
-### Structured records
-
-Each measurement can be linked to:
-
-- a request;
-- an observation;
-- a system;
-- a specific point in time;
-- a declared protocol.
-
-### Version information
-
-The record distinguishes between schema, metric and normalization
-mechanism versions.
-
-### Provenance information
-
-Provenance indicates what produced the measurement and under which
-protocol.
-
-### Integrity information
-
-The record may contain a content hash and a verifiable cryptographic
-signature.
-
-### An interoperable JSON contract
-
-Measurements can be exposed in a structured, versioned and
-machine-readable format.
-
-The schemas are available in the
-[`schema`](./schema/)
-directory.
-
----
-
-## Why this context matters
-
-A raw observation is not always enough to understand the behavioral
-state of the system that produced it.
-
-NeoMundi adds the measurement context needed to interpret that
-observation at a specific point in time.
-
-The same measurement primitive can support multiple downstream uses:
-
-- observability;
-- drift detection;
-- audit;
-- diagnosis;
-- comparison;
-- governance;
-- insurance;
-- optimization;
-- orchestration;
-- control;
-- creation of evidence records.
-
-These uses are built and operated by the consuming system.
-
-NeoMundi provides the measurement signal. The consuming system retains
-its architecture, rules and decision authority.
-
-> **One measurement primitive. Multiple applications.**
->
-> **Multiple infrastructures, without replacing them.**
-
----
-
-## How to integrate NeoMundi
-
-Integration relies on the NeoMundi API and a versioned interoperability
-contract that allow different infrastructures to consume the same
-measurement signal.
-
-### Quickstart
-
-[**Activate the layer and obtain your first measurement →**](./QUICKSTART.md)
-
-The Quickstart guide presents the shortest path for connecting a system
-and obtaining a first measurement.
-
-### API integration guide
-
-The
-[API integration guide](./API_INTEGRATION_GUIDE.md)
-describes:
-
-- endpoints;
-- payloads;
-- headers;
-- authentication;
-- error handling;
-- response processing.
-
-### Measurement contract
-
-The
-[measurement contract](./docs/MEASUREMENT_CONTRACT.md)
-defines the meaning, scope and limits of the signals.
-
-### Interpretation table
-
-The
-[measurement interpretation table](./docs/MEASUREMENT_INTERPRETATION_TABLE.md)
-indicates what may and may not be concluded from a signal.
-
-### Interoperability contract
-
-The
-[interoperability documentation](./docs/INTEROPERABILITY.md)
-describes the structure, versioning, provenance and exchange of the
-measurement.
-
----
-
-## Architectural boundary
-
-> **NeoMundi measures.**
->
-> **The consuming system interprets, governs and acts.**
-
-**Measurement ≠ Interpretation ≠ Policy ≠ Execution**
-
-The NeoMundi Runtime Measurement Layer is not:
-
-- an AI governance platform;
-- a compliance engine;
-- a policy engine;
-- a decision engine;
-- a monitoring dashboard;
-- a business application;
-- an autonomous blocking or authorization mechanism.
-
-NeoMundi does not decide:
-
-- `ALLOW`;
-- `BLOCK`;
-- `STOP`;
-- `ROUTE`;
-- or any other operational consequence.
-
-A NeoMundi measurement does not, by itself, constitute proof of truth,
-safety, compliance or admissibility.
-
-It provides independent, timestamped, traceable and comparable
-behavioral context that can strengthen the systems responsible for
-these functions.
-
-See the documentation on
-[consumer boundaries](./docs/CONSUMER_BOUNDARIES.md).
-
----
-
-## Integration principles
-
-### Infrastructure preserved
-
-NeoMundi integrates with existing infrastructure without requiring its
-replacement.
-
-### Responsibility preserved
-
-The consuming system retains:
-
-- its rules;
-- its thresholds;
-- its policies;
-- its decisions;
-- its actions.
-
-### Privacy by design
-
-The integration is designed to limit exchanges to the elements required
-for measurement.
-
-### Bring your own keys
-
-The consuming system retains control over its keys and provider access.
-
-### Independent consumption
-
-The same signal can be consumed by multiple infrastructures without
-imposing a shared governance model or interpretation.
-
----
+```text
+high stability ≠ factual correctness
+FLAG ≠ proven error
+ALLOW ≠ proven truth or permission
+single observation ≠ drift
+```
 
 ## Documentation
 
-### Get started
+| Document | Purpose |
+|---|---|
+| [START_HERE.md](START_HERE.md) | Select an integration path. |
+| [QUICKSTART.md](QUICKSTART.md) | Obtain a REST measurement and optional contract. |
+| [API_INTEGRATION_GUIDE.md](API_INTEGRATION_GUIDE.md) | REST, SSE, errors and verification. |
+| [Measurement Contract](docs/MEASUREMENT_CONTRACT.md) | Signal meanings and limits. |
+| [Interoperability](docs/INTEROPERABILITY.md) | Contract, versions and verification. |
+| [Consumer Boundaries](docs/CONSUMER_BOUNDARIES.md) | Measurement versus policy and action. |
+| [VERSIONING.md](VERSIONING.md) | Version schemes and unresolved differences. |
+| [schema/](schema/) | Authoritative v0.1 and v0.2 schemas. |
+| [reference/python/](reference/python/) | Pedagogical integration and verifier. |
 
-[QUICKSTART.md](./QUICKSTART.md)
+## Known limitations
 
-Activate the layer and obtain a first measurement.
-
-### Integrate the API
-
-[API_INTEGRATION_GUIDE.md](./API_INTEGRATION_GUIDE.md)
-
-Understand the endpoints, payloads, headers and error-handling
-mechanisms.
-
-### Understand the measurements
-
-[docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md)
-
-Understand the meaning, scope and limits of each measurement.
-
-### Interpret the signals
-
-[docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md)
-
-Identify what may and may not be concluded from a signal.
-
-### Consume the interoperable contract
-
-[docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md)
-
-Understand the structure, versioning, provenance and exchange of
-measurements.
-
-### Respect the usage boundaries
-
-[docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md)
-
-Distinguish measurement, interpretation, policy and execution.
-
-### Understand versioning
-
-[VERSIONING.md](./VERSIONING.md)
-
-Distinguish between schema, metric and normalizer versions.
-
-### Review product changes
-
-[CHANGELOG.md](./CHANGELOG.md)
-
-Review the product’s change history.
+- API response values are illustrative unless identified as real signed examples.
+- No official mapping reconciles the Metric Contract, experimental `G` vocabulary and RGC fields.
+- `metric_version` and `measurement_version` are not reconciled.
+- A signed v0.1 example combines `complete` with coverage `0.6`; preserve it as history, not a v0.2 template.
+- One observation establishes neither trend nor drift.
+- Deployment-wide evaluator destinations, retention and deletion guarantees are not established here.
+- SDK, local MCP and hosted MCP have different qualification states.
 
 ---
 
-## Product architecture
+**One measurement primitive. Multiple applications.**
 
-This repository contains only the NeoMundi measurement primitive.
-
-Layers that interpret the measurement or act on the signal are
-intentionally separated.
-
-~~~text
-NeoMundi Runtime Measurement Layer
-              │
-              ▼
-Interoperable Measurement Signal
-              │
-              ▼
-Customer and Partner Systems
-              │
-              ▼
-Interpretation · Policy · Decision · Action
-~~~
-
-These applications may include:
-
-- compliance;
-- insurance;
-- governance;
-- orchestration;
-- diagnosis;
-- decision support;
-- change assurance.
-
-This separation protects the neutrality of the measurement and allows
-multiple infrastructures to consume the same signal according to their
-own rules.
-
----
-
-## Founding principle
-
-> **One measurement primitive. Multiple applications.**
->
 > **Your system. Your decisions. Our measurement signal.**

@@ -1,29 +1,18 @@
-# Quickstart
+# Quickstart — first REST measurement
 
-Get a runtime measurement and its interoperable contract in three calls.
+[English](README.md) · [Français](README_FR.md) · [Choose another path](START_HERE.md)
 
-> Field paths, endpoints and headers below are confirmed by production client code. Example response *values* are illustrative unless a step explicitly says "real signed example". See [source-notes/SOURCE_STATUS.md](./source-notes/SOURCE_STATUS.md) for provenance.
+Measure an AI execution you already produced, then optionally retrieve its portable interoperability contract.
 
-## 1. Call NeoMundi around your model call
+> Route and request field names below are confirmed by existing integration code. This guide deliberately does not invent a response example: no new live API call was made for this documentation release. See [source status](source-notes/SOURCE_STATUS.md).
 
-```bash
-curl -N -X POST "https://api.neomundi.io/v1/govern/stream" \
-  -H "X-API-Key: YOUR_NEOMUNDI_KEY" \
-  -H "Accept: text/event-stream" \
-  -H "Content-Type: application/json; charset=utf-8" \
-  -d '{
-    "prompt": "Explain why runtime stability should not be confused with factual correctness.",
-    "model": "gpt-4o-2024-11-20",
-    "provider": "openai",
-    "provider_api_key": "YOUR_PROVIDER_KEY"
-  }'
-```
+## Before you start
 
-NeoMundi calls the provider on your behalf and streams the generated text back to you as Server-Sent Events, terminated by `data: [DONE]`.
+You need a NeoMundi API key and a prompt/response pair you are authorized to submit. This REST path does **not** require a provider API key and does not ask NeoMundi to generate an answer.
 
-Reconstruct the full generated text from the stream before moving to step 2. Do **not** reuse the `request_id` returned at this step for step 3 — see [API_INTEGRATION_GUIDE.md, §3](./API_INTEGRATION_GUIDE.md) for why.
+Do not put credentials or unrelated personal data in the prompt or response. Review [Data and confidentiality](https://github.com/neomundi-io/neomundi-io-data-protection).
 
-## 2. Get the runtime measurement
+## 1. Measure the execution
 
 ```bash
 curl -X POST "https://api.neomundi.io/v1/govern" \
@@ -32,31 +21,74 @@ curl -X POST "https://api.neomundi.io/v1/govern" \
   -d '{
     "source_type": "llm",
     "mode": "OBS",
-    "llm_prompt": "Explain why runtime stability should not be confused with factual correctness.",
-    "llm_response": "THE_FULL_TEXT_RECONSTRUCTED_IN_STEP_1",
-    "raw_metrics": { "token_count": 42, "latency_ms": 640 }
+    "llm_prompt": "What is the capital of France?",
+    "llm_response": "Paris.",
+    "raw_metrics": {
+      "token_count": 1,
+      "latency_ms": 120
+    }
   }'
 ```
 
-This returns the runtime measurement, including a `request_id` — **this** is the identifier to use in step 3. It also returns a `governance.decision` signal (`ALLOW` / `FLAG` / `REROUTE` / `HUMAN_REVIEW` / `STOP`). This is a measurement-layer signal, not an executed action — NeoMundi does not block, reroute or modify your flow on your behalf.
+The `token_count: 1` and `latency_ms: 120` values above are illustrative placeholders. They were not measured and do not come from a live observation. Replace them with actual observed values when available. Do not invent operational values merely to fill a field.
 
-## 3. Get the interoperable measurement contract
+Preserve the complete JSON response, including:
+
+- the request identifier returned by this REST call;
+- version and provenance fields;
+- measurement status and coverage;
+- numeric values **and** null/unavailable states;
+- the raw envelope for later review.
+
+Do not treat a missing signal as `0`, “safe” or “within bounds”.
+
+### About `governance.decision`
+
+The API may return a historical signal field named `governance.decision`, with values such as `ALLOW`, `FLAG`, `REROUTE`, `HUMAN_REVIEW` or `STOP`.
+
+This is advisory measurement output—not an authorization, command or action executed by NeoMundi. Your system remains responsible for interpretation, policy and execution. See [Consumer Boundaries](docs/CONSUMER_BOUNDARIES.md).
+
+## 2. Optionally request the interoperability contract
+
+Use the `request_id` returned by the REST measurement:
 
 ```bash
-curl -X POST "https://api.neomundi.io/v1/rgc/contracts/REQUEST_ID_FROM_STEP_2" \
+curl -X POST \
+  "https://api.neomundi.io/v1/rgc/contracts/REQUEST_ID_FROM_REST" \
   -H "X-API-Key: YOUR_NEOMUNDI_KEY"
 ```
 
-This step is optional relative to steps 1–2 — the measurement already exists without it — but recommended whenever you need an audit trail that a third party can verify independently of NeoMundi's own infrastructure. See [docs/INTEROPERABILITY.md](./docs/INTEROPERABILITY.md).
+The measurement already exists without this step. Request the contract when you need a portable record another system can validate and verify independently.
 
-Before trusting the contract, check `identity.schema_version` and validate it against the matching schema in [schema/](./schema/) (`contract-v0.1.schema.json` or `contract-v0.2.schema.json`) — never interpret a contract under a different version's semantics than the one it declares.
+Before interpreting it:
 
-## Where to read what a field means
+1. read `identity.schema_version`;
+2. select the exact matching schema in [`schema/`](schema/);
+3. validate the JSON;
+4. verify the payload hash and Ed25519/JWS signature;
+5. inspect coverage, signal states, limitations and measurement boundary;
+6. apply only your own explicitly defined consumer policy.
 
-Do not guess. Every signal returned above has a documented meaning and, just as importantly, a documented **non**-meaning:
+Never validate a v0.1 contract under v0.2 semantics or the reverse.
 
-- [docs/MEASUREMENT_CONTRACT.md](./docs/MEASUREMENT_CONTRACT.md) — full semantic definitions and limits.
-- [docs/MEASUREMENT_INTERPRETATION_TABLE.md](./docs/MEASUREMENT_INTERPRETATION_TABLE.md) — one-line-per-signal quick reference.
-- [docs/CONSUMER_BOUNDARIES.md](./docs/CONSUMER_BOUNDARIES.md) — what you, as the consuming system, are responsible for deciding.
+## 3. Understand the evidence status
 
-A working, minimal end-to-end example (Python) is in [reference/python/](./reference/python/).
+- **v0.1:** two bundled historical examples are genuinely signed and were independently re-verified.
+- **v0.2:** the schema enforces corrected partial-measurement semantics; bundled examples are explicitly unsigned fixtures, not live observations.
+- **API examples:** field paths are documented, but illustrative values are not evidence of a new live measurement.
+
+Read [Interoperability](docs/INTEROPERABILITY.md) and the [schema examples](schema/examples/README.md) before using a contract as audit evidence.
+
+## Alternative: generate through SSE
+
+If you want NeoMundi to call an AI provider and stream the answer, use `POST /v1/govern/stream`. That path sends generation arguments and the configured provider credential to NeoMundi. It is separate from measuring an execution you already hold.
+
+Follow [API Integration Guide §3](API_INTEGRATION_GUIDE.md#3-step-1--v1governstream-get-the-model-response).
+
+## Next steps
+
+- [API integration guide](API_INTEGRATION_GUIDE.md) — payloads, SSE, errors and verification.
+- [Measurement Contract](docs/MEASUREMENT_CONTRACT.md) — what signals mean.
+- [Interpretation Table](docs/MEASUREMENT_INTERPRETATION_TABLE.md) — what they do not mean.
+- [Interoperability](docs/INTEROPERABILITY.md) — schemas, signatures and consumer workflow.
+- [Python reference starter](reference/python/) — pedagogical code, not a production-qualified client.
