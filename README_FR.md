@@ -8,10 +8,10 @@
 
 **Une infrastructure indépendante de mesure de l’IA pour vos systèmes existants.**
 
-[![Couche : mesure pendant l'exécution](https://img.shields.io/badge/couche-mesure_pendant_l'exécution-475569?style=flat-square)](#fonctionnement)
+[![Couche : mesure pendant l'exécution](https://img.shields.io/badge/couche-mesure_execution-475569?style=flat-square)](#fonctionnement)
 [![REST : parcours principal](https://img.shields.io/badge/REST-parcours_principal-0f766e?style=flat-square)](QUICKSTART.md)
 [![SSE : alternatif](https://img.shields.io/badge/SSE-parcours_alternatif-2563eb?style=flat-square)](API_INTEGRATION_GUIDE.md)
-[![Interop : v0.1 signée](https://img.shields.io/badge/Interop-v0.1_signée-0f766e?style=flat-square)](docs/INTEROPERABILITY.md)
+[![Interop : v0.1 signée](https://img.shields.io/badge/Interop-v0.1_signee-0f766e?style=flat-square)](docs/INTEROPERABILITY.md)
 [![SDK et MCP : voir statuts](https://img.shields.io/badge/SDK_%26_MCP-voir_statuts-a16207?style=flat-square)](#statut-des-intégrations)
 
 **[Commencer](START_HERE_FR.md)** · [Première mesure](QUICKSTART.md) · [Guide API](API_INTEGRATION_GUIDE.md) · [Signaux](docs/MEASUREMENT_CONTRACT.md) · [Interopérabilité](docs/INTEROPERABILITY.md) · [Limites](#limites-connues)
