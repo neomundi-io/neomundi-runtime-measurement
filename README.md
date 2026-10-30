@@ -58,7 +58,7 @@ curl -X POST "https://api.neomundi.io/v1/govern" \
   }'
 ```
 
-The route and request fields are confirmed by existing integration material. No response values are shown because this documentation change did not perform a new live API call. Preserve the raw response, its versions, and every partial or unavailable state; never replace a missing value with zero.
+The `token_count: 1` and `latency_ms: 120` values above are illustrative placeholders, not measured data and not values captured from a live observation.\n\nThe route and request fields are confirmed by existing integration material. No response values are shown because this documentation change did not perform a new live API call. Preserve the raw response, its versions, and every partial or unavailable state; never replace a missing value with zero.
 
 [**Follow the complete REST path →**](QUICKSTART.md)
 
