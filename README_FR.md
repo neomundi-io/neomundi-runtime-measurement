@@ -2,6 +2,10 @@
 
 <sub><a href="README.md">English</a> · <b>Français</b></sub>
 
+[Station — Observer et expérimenter](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md) · **[Runtime Measurement — Mesurer et intégrer](README_FR.md)** · [Use Cases — Applications, pilotes et preuves](https://github.com/neomundi-io/neomundi-use-cases/blob/main/README_FR.md) · [Créer un compte — ControlTower](https://controltower.neomundi.io/welcome)
+
+<sub>[Organisation GitHub NeoMundi](https://github.com/neomundi-io)</sub>
+
 # NeoMundi Runtime Measurement
 
 ## Transformez le comportement de l’IA en signaux mesurables.
@@ -145,6 +149,7 @@ observation unique ≠ dérive
 | [Limites consommateur](docs/CONSUMER_BOUNDARIES.md) | Mesure, politique et action. |
 | [VERSIONING.md](VERSIONING.md) | Versions et différences non résolues. |
 | [schema/](schema/) | Schémas v0.1 et v0.2 faisant autorité. |
+| [reference/python/](reference/python/) | Intégration pédagogique et vérificateur. |
 
 ## Limites connues
 
