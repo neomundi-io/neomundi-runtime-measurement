@@ -58,7 +58,9 @@ curl -X POST "https://api.neomundi.io/v1/govern" \
   }'
 ```
 
-Les valeurs `token_count: 1` et `latency_ms: 120` ci-dessus sont des données d’exemple illustratives, non mesurées et non issues d’une observation live.\n\nLa route et les champs sont confirmés par les documents d’intégration existants. Aucune valeur de réponse n’est affichée, car cette refonte n’a effectué aucun nouvel appel live. Conservez la réponse brute, ses versions et tous les états partiels ou indisponibles ; ne remplacez jamais une valeur absente par zéro.
+Les valeurs `token_count: 1` et `latency_ms: 120` ci-dessus sont des données d’exemple illustratives, non mesurées et non issues d’une observation live.
+
+La route et les champs sont confirmés par les documents d’intégration existants. Aucune valeur de réponse n’est affichée, car cette refonte n’a effectué aucun nouvel appel live. Conservez la réponse brute, ses versions et tous les états partiels ou indisponibles ; ne remplacez jamais une valeur absente par zéro.
 
 [**Suivre le parcours REST complet →**](QUICKSTART.md)
 
