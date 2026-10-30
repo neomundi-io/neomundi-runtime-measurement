@@ -30,7 +30,7 @@ curl -X POST "https://api.neomundi.io/v1/govern" \
   }'
 ```
 
-Use actual observed token count and latency when available. Do not invent operational values merely to fill a field.
+The `token_count: 1` and `latency_ms: 120` values above are illustrative placeholders. They were not measured and do not come from a live observation. Replace them with actual observed values when available. Do not invent operational values merely to fill a field.
 
 Preserve the complete JSON response, including:
 
