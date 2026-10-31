@@ -153,6 +153,16 @@ single observation ≠ drift
 | [schema/](schema/) | Authoritative v0.1 and v0.2 schemas. |
 | [reference/python/](reference/python/) | Pedagogical integration and verifier. |
 
+## Infrastructure & Program Support
+
+NeoMundi's independent AI observation and measurement initiative benefits from infrastructure and startup program support:
+
+- **[Infomaniak](https://www.infomaniak.com/)** — Infrastructure partner supporting the development of NeoMundi's independent AI observation instrument.
+- **[OVHcloud Startup Program](https://startup.ovhcloud.com/)** — Startup support program participant.
+- **[NVIDIA Inception](https://www.nvidia.com/en-us/startups/)** — Member of NVIDIA's program for innovative startups.
+
+These relationships support NeoMundi's development and do not imply certification or endorsement of its scientific results.
+
 ## Known limitations
 
 - API response values are illustrative unless identified as real signed examples.
