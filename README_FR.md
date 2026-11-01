@@ -118,6 +118,13 @@ Distinguez trois frontières :
 
 Un export sans texte brut ne prouve pas qu’aucun texte brut n’a été traité en amont. Consultez [Données et confidentialité](https://github.com/neomundi-io/neomundi-io-data-protection/blob/main/README_FR.md).
 
+## Confiance, conformité et protection des données
+
+Runtime Measurement fournit des preuves techniques bornées : mesures, couverture, provenance, états indisponibles et contrats d'échange signés facultatifs. Ces éléments peuvent soutenir une démarche de gouvernance ou de conformité, mais ne constituent ni une évaluation de conformité, ni une décision juridique, ni une certification.
+
+- [**AI Act & RGPD — preuves opérationnelles**](https://github.com/neomundi-io/ai-act-rgpd/blob/main/README_FR.md) — met en correspondance la contribution technique et les démarches de conformité, sans transférer les responsabilités juridiques à la couche de mesure.
+- [**Protection des données et confidentialité**](https://github.com/neomundi-io/neomundi-io-data-protection/blob/main/README_FR.md) — documente ce qui peut être transmis à l'API et aux évaluateurs, ce que Station enregistre ou masque, et pourquoi la conservation doit être vérifiée par déploiement.
+
 ## Preuves
 
 - Deux contrats historiques v0.1 ont été revérifiés pour le schéma, l’empreinte SHA-256 et la signature Ed25519/JWS.
