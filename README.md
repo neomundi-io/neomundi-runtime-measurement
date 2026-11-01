@@ -118,6 +118,13 @@ Keep three boundaries separate:
 
 An export without raw text does not prove no raw text was processed upstream. Review [Data and confidentiality](https://github.com/neomundi-io/neomundi-io-data-protection).
 
+## Trust, Compliance & Data Protection
+
+Runtime Measurement supplies bounded technical evidence: measurements, coverage, provenance, unavailable states and optional signed exchange records. That evidence may support governance or compliance work, but it is not a conformity assessment, legal decision or certification.
+
+- [**AI Act & GDPR — Operational Evidence**](https://github.com/neomundi-io/ai-act-rgpd) — maps the technical contribution to compliance processes and keeps legal responsibilities out of the measurement layer.
+- [**Data Protection & Confidentiality**](https://github.com/neomundi-io/neomundi-io-data-protection) — documents what may be transmitted to the API and evaluators, what Station records or withholds, and why retention must be verified per deployment.
+
 ## Evidence
 
 - Two historical v0.1 contracts were independently re-verified for schema, SHA-256 hash and Ed25519/JWS signature.
