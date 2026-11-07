@@ -26,6 +26,22 @@
 
 ---
 
+## La chaîne de produits NeoMundi
+
+**Measurement → Station → Evidence** : trois produits complémentaires, un parcours cohérent pour mesurer le comportement des IA puis contrôler indépendamment les preuves techniques.
+
+| Étape | Produit | Fonction |
+|---|---|---|
+| **1 · Mesurer** | [Measurement](https://github.com/neomundi-io/neomundi-runtime-measurement) | Produire des mesures versionnées, leurs statuts et la couverture des évaluateurs. Accès par [API REST](https://github.com/neomundi-io/neomundi-runtime-measurement), [SDK Python](https://github.com/neomundi-io/neomundi-python-sdk) ou [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp). |
+| **2 · Contextualiser** | [Station](https://github.com/neomundi-io/neomundi-station-public) | Organiser les observations et campagnes contrôlées, conserver la provenance et exporter les dossiers. |
+| **3 · Vérifier** | [Evidence](https://github.com/neomundi-io/neomundi-evidence-public) | Contrôler l’intégrité des archives, relier les artefacts et vérifier les attestations signées. [Mode d’emploi](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/docs/EVIDENCE_USER_GUIDE.fr.md) · [Démonstration](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/docs/EVIDENCE_TECHNICAL_DEMO.fr.md). |
+
+**Poursuivre :** [Explorer Station](https://github.com/neomundi-io/neomundi-station-public) · [Vérifier avec Evidence](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/README.fr.md) · [Discuter d’un pilote](mailto:contact@neomundi.io).
+
+La chaîne a été qualifiée sur un cas expérimental réel Q-2 avec attestation Ed25519. Les contrôles techniques sont réussis, mais le verdict global Q-2 reste **PARTIAL**. Le corpus figé Q-2 demeure privé et ne constitue pas une démo publique.
+
+---
+
 NeoMundi mesure une exécution d’IA dans des conditions déclarées et renvoie un enregistrement structuré et horodaté. Votre système peut le conserver, comparer des observations compatibles ou demander un contrat d’interopérabilité signé.
 
 NeoMundi ne décide **pas** si votre application doit autoriser, bloquer, rediriger ou approuver quoi que ce soit. L’interprétation, la politique et l’exécution restent sous l’autorité du système consommateur.
