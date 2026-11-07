@@ -2,27 +2,30 @@
 
 <sub><a href="README.md">English</a> · <b>Français</b></sub>
 
-[**Measurement**](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/README_FR.md) · [**Station**](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md) · [**Evidence**](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/README.fr.md) · [**API**](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/QUICKSTART.md) · [**SDK**](https://github.com/neomundi-io/neomundi-python-sdk) · [**MCP**](https://github.com/neomundi-io/neomundi-measurement-mcp) · [**Cas d’usage**](https://github.com/neomundi-io/neomundi-use-cases) · [**ControlTower**](https://controltower.neomundi.io/welcome)
+# NeoMundi Measurement
 
-<sub>[Organisation GitHub NeoMundi](https://github.com/neomundi-io)</sub>
-
-# NeoMundi Runtime Measurement
-
-## Transformez le comportement de l’IA en signaux mesurables.
+### Transformez le comportement de l’IA en signaux mesurables.
 
 **Une infrastructure indépendante de mesure de l’IA pour vos systèmes existants.**
 
-[![Couche : mesure pendant l'exécution](https://img.shields.io/badge/couche-mesure_execution-475569?style=flat-square)](#fonctionnement)
-[![REST : parcours principal](https://img.shields.io/badge/REST-parcours_principal-0f766e?style=flat-square)](QUICKSTART.md)
-[![SSE : alternatif](https://img.shields.io/badge/SSE-parcours_alternatif-2563eb?style=flat-square)](API_INTEGRATION_GUIDE.md)
-[![Interop : v0.1 signée](https://img.shields.io/badge/Interop-v0.1_signee-0f766e?style=flat-square)](docs/INTEROPERABILITY.md)
-[![SDK et MCP : voir statuts](https://img.shields.io/badge/SDK_%26_MCP-voir_statuts-a16207?style=flat-square)](#statut-des-intégrations)
+**Measurement → Station → Evidence**
 
-**[Commencer](START_HERE_FR.md)** · [Première mesure](QUICKSTART.md) · [Guide API](API_INTEGRATION_GUIDE.md) · [Signaux](docs/MEASUREMENT_CONTRACT.md) · [Interopérabilité](docs/INTEROPERABILITY.md) · [Limites](#limites-connues)
+[![Measurement](https://img.shields.io/badge/Measurement-Mesurer-2563eb?style=flat-square)](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/README_FR.md)
+[![Station](https://img.shields.io/badge/Station-Observer-0f766e?style=flat-square)](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md)
+[![Evidence](https://img.shields.io/badge/Evidence-Verifier-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/README.fr.md)
+[![Use cases](https://img.shields.io/badge/Cas_d_usage-Explorer-64748b?style=flat-square)](https://github.com/neomundi-io/neomundi-use-cases/blob/main/README_FR.md)
 
-> **Votre système. Vos décisions. Notre signal de mesure.**
+**[API](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/QUICKSTART.md)** · **[Créer un compte](https://controltower.neomundi.io/welcome)**
 
 </div>
+
+---
+
+## Documentation et intégrations
+
+[Commencer](START_HERE_FR.md) · [Première mesure](QUICKSTART.md) · [Guide API](API_INTEGRATION_GUIDE.md) · [Signaux](docs/MEASUREMENT_CONTRACT.md) · [Interopérabilité](docs/INTEROPERABILITY.md) · [SDK Python](https://github.com/neomundi-io/neomundi-python-sdk) · [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp)
+
+Les statuts techniques détaillés (REST, SSE, interopérabilité, SDK, MCP) figurent dans [Statut des intégrations](#statut-des-intégrations).
 
 ---
 
