@@ -26,6 +26,22 @@
 
 ---
 
+## The NeoMundi product chain
+
+**Measurement → Station → Evidence** — three complementary products, one coherent path from measuring AI behaviour to independently checking its technical evidence.
+
+| Step | Product | Purpose |
+|---|---|---|
+| **1 · Measure** | [Measurement](https://github.com/neomundi-io/neomundi-runtime-measurement) | Capture versioned measurement results, status and evaluator coverage. Access through [REST API](https://github.com/neomundi-io/neomundi-runtime-measurement), [Python SDK](https://github.com/neomundi-io/neomundi-python-sdk) or [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp). |
+| **2 · Contextualise** | [Station](https://github.com/neomundi-io/neomundi-station-public) | Organise controlled observations and campaigns, retain provenance and export records. |
+| **3 · Verify** | [Evidence](https://github.com/neomundi-io/neomundi-evidence-public) | Check archive integrity, trace artefacts and verify signed attestations. [User guide](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/docs/EVIDENCE_USER_GUIDE.md) · [Technical demo](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/docs/EVIDENCE_TECHNICAL_DEMO.md). |
+
+**Take the next step:** [Explore Station](https://github.com/neomundi-io/neomundi-station-public) · [Verify with Evidence](https://github.com/neomundi-io/neomundi-evidence-public) · [Discuss a pilot](mailto:contact@neomundi.io).
+
+The chain has been exercised on a real experimental Q-2 case with an Ed25519 attestation. Its technical checks passed; the global Q-2 verdict remains **PARTIAL**. The frozen Q-2 corpus is private, not a public demo.
+
+---
+
 NeoMundi measures an AI execution under declared conditions and returns a structured, timestamped measurement record. Your system can retain the record, compare compatible observations, or request a signed interoperability contract for independent verification.
 
 NeoMundi does **not** decide whether your application should allow, block, reroute or approve anything. Interpretation, policy and execution remain with the consuming system.
