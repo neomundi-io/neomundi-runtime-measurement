@@ -12,7 +12,7 @@
 
 [![Measurement](https://img.shields.io/badge/Measurement-Mesurer-2563eb?style=flat-square)](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/README_FR.md)
 [![Station](https://img.shields.io/badge/Station-Observer-0f766e?style=flat-square)](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md)
-[![Evidence](https://img.shields.io/badge/Evidence-Verifier-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/README.fr.md)
+[![Evidence](https://img.shields.io/badge/Evidence-Verifier-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-gateway/blob/main/README.fr.md)
 [![Use cases](https://img.shields.io/badge/Cas_d_usage-Explorer-64748b?style=flat-square)](https://github.com/neomundi-io/neomundi-use-cases/blob/main/README_FR.md)
 
 **[API](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/QUICKSTART.md)** · **[Créer un compte](https://controltower.neomundi.io/welcome)**
@@ -37,9 +37,9 @@ Les statuts techniques détaillés (REST, SSE, interopérabilité, SDK, MCP) fig
 |---|---|---|
 | **1 · Mesurer** | [Measurement](https://github.com/neomundi-io/neomundi-runtime-measurement) | Produire des mesures versionnées, leurs statuts et la couverture des évaluateurs. Accès par [API REST](https://github.com/neomundi-io/neomundi-runtime-measurement), [SDK Python](https://github.com/neomundi-io/neomundi-python-sdk) ou [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp). |
 | **2 · Contextualiser** | [Station](https://github.com/neomundi-io/neomundi-station-public) | Organiser les observations et campagnes contrôlées, conserver la provenance et exporter les dossiers. |
-| **3 · Vérifier** | [Evidence](https://github.com/neomundi-io/neomundi-evidence-public) | Contrôler l’intégrité des archives, relier les artefacts et vérifier les attestations signées. [Mode d’emploi](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/docs/EVIDENCE_USER_GUIDE.fr.md) · [Démonstration](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/docs/EVIDENCE_TECHNICAL_DEMO.fr.md). |
+| **3 · Vérifier** | [Evidence](https://github.com/neomundi-io/neomundi-evidence-gateway) | Contrôler l’intégrité des archives, relier les artefacts et vérifier les attestations signées. [Mode d’emploi](https://github.com/neomundi-io/neomundi-evidence-gateway/blob/main/verifier/README.fr.md) · [Démonstration](https://github.com/neomundi-io/neomundi-evidence-gateway/blob/main/verifier/README.fr.md#contrôler-nos-chiffres--les-quatre-commandes). |
 
-**Poursuivre :** [Explorer Station](https://github.com/neomundi-io/neomundi-station-public) · [Vérifier avec Evidence](https://github.com/neomundi-io/neomundi-evidence-public/blob/main/README.fr.md) · [Discuter d’un pilote](mailto:contact@neomundi.io).
+**Poursuivre :** [Explorer Station](https://github.com/neomundi-io/neomundi-station-public) · [Vérifier avec Evidence](https://github.com/neomundi-io/neomundi-evidence-gateway/blob/main/README.fr.md) · [Discuter d’un pilote](mailto:contact@neomundi.io).
 
 La chaîne a été qualifiée sur un cas expérimental réel Q-2 avec attestation Ed25519. Les contrôles techniques sont réussis, mais le verdict global Q-2 reste **PARTIAL**. Le corpus figé Q-2 demeure privé et ne constitue pas une démo publique.
 
