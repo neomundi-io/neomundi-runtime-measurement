@@ -6,9 +6,13 @@
 
 ### Turn AI behavior into measurable signals.
 
+This repository documents the **measurement instrument** itself: the REST and SSE contracts, the signals, their provenance and their unavailable states. A signal that was not measured is never published as a number.
+
+[Product architecture](https://github.com/neomundi-io/.github/blob/main/docs/PRODUCT_ARCHITECTURE.md) · [Capability audit](https://github.com/neomundi-io/.github/blob/main/docs/V2_FUNCTIONAL_AUDIT_2026-11-15.md) · [All components](https://github.com/neomundi-io/.github)
+
 **Independent AI measurement infrastructure for your existing systems.**
 
-**Measurement → Station → Evidence**
+**INSTALL → TRACE → MEASURE → VERIFY → ACT**
 
 [![Measurement](https://img.shields.io/badge/Measurement-Measure-2563eb?style=flat-square)](https://github.com/neomundi-io/neomundi-runtime-measurement)
 [![Station](https://img.shields.io/badge/Station-Observe-0f766e?style=flat-square)](https://github.com/neomundi-io/neomundi-station-public)
@@ -31,7 +35,7 @@ Technical capability status (REST, SSE, interoperability, SDK and MCP) is covere
 
 ## The NeoMundi product chain
 
-**Measurement → Station → Evidence** — three complementary products, one coherent path from measuring AI behaviour to independently checking its technical evidence.
+**Measurement → Station → Evidence** — three complementary products along that path, one coherent route from measuring AI behaviour to independently checking its technical evidence. The five steps above are the user journey; these three are the components that serve it.
 
 | Step | Product | Purpose |
 |---|---|---|
