@@ -8,7 +8,7 @@
 
 Ce dépôt documente l'**instrument de mesure** lui-même : les contrats REST et SSE, les signaux, leur provenance et leurs états d'indisponibilité. Un signal non mesuré n'est jamais publié comme un nombre.
 
-[Architecture produit](https://github.com/neomundi-io/.github/blob/main/docs/PRODUCT_ARCHITECTURE.md) · [Audit des capacités](https://github.com/neomundi-io/.github/blob/main/docs/V2_FUNCTIONAL_AUDIT_2026-11-15.md) · [Tous les composants](https://github.com/neomundi-io/.github)
+[Architecture produit](https://github.com/neomundi-io/.github/blob/main/docs/PRODUCT_ARCHITECTURE.md) · [Audit des capacités](https://github.com/neomundi-io/.github/blob/main/docs/V2_FUNCTIONAL_AUDIT_2026-11-15.md) · [Tous les composants](https://github.com/orgs/neomundi-io/repositories)
 
 **Une infrastructure indépendante de mesure de l’IA pour vos systèmes existants.**
 
