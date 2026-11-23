@@ -6,6 +6,8 @@
 
 ### Transformez le comportement de l’IA en signaux mesurables.
 
+**Sachez ce qui a été mesuré. Conservez les preuves.**
+
 Ce dépôt documente l'**instrument de mesure** lui-même : les contrats REST et SSE, les signaux, leur provenance et leurs états d'indisponibilité. Un signal non mesuré n'est jamais publié comme un nombre.
 
 [Architecture produit](https://github.com/neomundi-io/.github/blob/main/docs/PRODUCT_ARCHITECTURE.md) · [Audit des capacités](https://github.com/neomundi-io/.github/blob/main/docs/V2_FUNCTIONAL_AUDIT_2026-11-15.md) · [Tous les composants](https://github.com/orgs/neomundi-io/repositories)
@@ -35,7 +37,7 @@ Les statuts techniques détaillés (REST, SSE, interopérabilité, SDK, MCP) fig
 
 ## La chaîne de produits NeoMundi
 
-**Measurement → Station → Evidence** : trois produits complémentaires le long de ce parcours, une route cohérente pour mesurer le comportement des IA puis contrôler indépendamment pour mesurer le comportement des IA puis contrôler indépendamment les preuves techniques.
+**Measurement → Station → Evidence** : trois produits complémentaires le long de ce parcours, un parcours cohérent pour mesurer le comportement des IA et vérifier indépendamment les preuves techniques.
 
 | Étape | Produit | Fonction |
 |---|---|---|
@@ -203,6 +205,6 @@ Ces relations soutiennent le développement de NeoMundi et n'impliquent ni certi
 
 ---
 
-**Une primitive de mesure. Plusieurs applications.**
+**Une primitive de mesure. De multiples applications. De multiples infrastructures.**
 
 > **Votre système. Vos décisions. Notre signal de mesure.**
