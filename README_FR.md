@@ -1,6 +1,6 @@
 <div align="center">
 
-<sub><a href="README.md">English</a> · <b>Français</b></sub>
+[![Français](https://img.shields.io/badge/FR-Fran%C3%A7ais-2563eb?style=flat-square)](README_FR.md) · [![English](https://img.shields.io/badge/EN-English-2563eb?style=flat-square)](README.md)
 
 # NeoMundi Measurement
 
@@ -21,7 +21,9 @@ Ce dépôt documente l'**instrument de mesure** lui-même : les contrats REST et
 [![Evidence](https://img.shields.io/badge/Evidence-Verifier-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-gateway/blob/main/README.fr.md)
 [![Use cases](https://img.shields.io/badge/Cas_d_usage-Explorer-64748b?style=flat-square)](https://github.com/neomundi-io/neomundi-use-cases/blob/main/README_FR.md)
 
-**[API](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/QUICKSTART.md)** · **[Créer un compte](https://controltower.neomundi.io/welcome)**
+**[Obtenir une première mesure](QUICKSTART.md)** · **[Explorer les cas d’usage](https://github.com/neomundi-io/neomundi-use-cases/blob/main/README_FR.md)** · **[Créer un compte](https://controltower.neomundi.io/welcome)**
+
+**[neomundi.io](https://neomundi.io/)**
 
 </div>
 
@@ -32,6 +34,19 @@ Ce dépôt documente l'**instrument de mesure** lui-même : les contrats REST et
 [Commencer](START_HERE_FR.md) · [Première mesure](QUICKSTART.md) · [Guide API](API_INTEGRATION_GUIDE.md) · [Signaux](docs/MEASUREMENT_CONTRACT.md) · [Interopérabilité](docs/INTEROPERABILITY.md) · [SDK Python](https://github.com/neomundi-io/neomundi-python-sdk) · [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp)
 
 Les statuts techniques détaillés (REST, SSE, interopérabilité, SDK, MCP) figurent dans [Statut des intégrations](#statut-des-intégrations).
+
+---
+
+## De l’interaction IA à la mesure consultable
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/neomundi-io/neomundi-runtime-measurement/main/docs/assets/measurement-fr-dark.svg">
+    <img alt="Parcours de mesure : entrée, évaluateurs et couverture, observation versionnée avec provenance, puis consultation sous l’autorité du système destinataire." src="https://raw.githubusercontent.com/neomundi-io/neomundi-runtime-measurement/main/docs/assets/measurement-fr-light.svg" width="100%">
+  </picture>
+</p>
+
+Le même instrument permet de mesurer une réponse existante en REST ou de produire une génération accompagnée de mesures en SSE. Un transport réussi ne garantit pas que tous les signaux ont été mesurés. Le système destinataire conserve l’autorité d’interprétation et d’action.
 
 ---
 
