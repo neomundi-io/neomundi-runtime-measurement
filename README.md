@@ -1,6 +1,6 @@
 <div align="center">
 
-<sub><b>English</b> · <a href="README_FR.md">Français</a></sub>
+[![English](https://img.shields.io/badge/EN-English-2563eb?style=flat-square)](README.md) · [![Français](https://img.shields.io/badge/FR-Fran%C3%A7ais-2563eb?style=flat-square)](README_FR.md)
 
 # NeoMundi Measurement
 
@@ -21,7 +21,9 @@ This repository documents the **measurement instrument** itself: the REST and SS
 [![Evidence](https://img.shields.io/badge/Evidence-Verify-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-gateway)
 [![Use cases](https://img.shields.io/badge/Use_cases-Explore-64748b?style=flat-square)](https://github.com/neomundi-io/neomundi-use-cases)
 
-**[API](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/QUICKSTART.md)** · **[Create an account](https://controltower.neomundi.io/welcome)**
+**[Get your first measurement](QUICKSTART.md)** · **[Explore use cases](https://github.com/neomundi-io/neomundi-use-cases)** · **[Create an account](https://controltower.neomundi.io/welcome)**
+
+**[neomundi.io](https://neomundi.io/)**
 
 </div>
 
@@ -32,6 +34,19 @@ This repository documents the **measurement instrument** itself: the REST and SS
 [Start here](START_HERE.md) · [First measurement](QUICKSTART.md) · [API guide](API_INTEGRATION_GUIDE.md) · [Signals](docs/MEASUREMENT_CONTRACT.md) · [Interoperability](docs/INTEROPERABILITY.md) · [Python SDK](https://github.com/neomundi-io/neomundi-python-sdk) · [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp)
 
 Technical capability status (REST, SSE, interoperability, SDK and MCP) is covered under [Integration status](#integration-status).
+
+---
+
+## From an AI interaction to an inspectable measurement
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/neomundi-io/neomundi-runtime-measurement/main/docs/assets/measurement-en-dark.svg">
+    <img alt="Measurement journey: input, evaluators and coverage, versioned observation with provenance, and independent consumption under the user's own policy." src="https://raw.githubusercontent.com/neomundi-io/neomundi-runtime-measurement/main/docs/assets/measurement-en-light.svg" width="100%">
+  </picture>
+</p>
+
+The same instrument supports REST measurements of an existing response and SSE generation with measurements. A transport success does not imply that every signal was measured. The receiving system retains authority over interpretation and action.
 
 ---
 
