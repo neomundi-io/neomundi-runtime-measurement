@@ -8,6 +8,10 @@
 
 **Sachez ce qui a été mesuré. Conservez les preuves.**
 
+**Mesurez le comportement des IA en exécution et surveillez son évolution au fil des interactions instrumentées.**
+
+Utilisez les mesures REST après appel ou le proxy de génération SSE pour éclairer le pilotage de vos systèmes existants. Les politiques et leur application restent du ressort de l'application intégratrice.
+
 Ce dépôt documente l'**instrument de mesure** lui-même : les contrats REST et SSE, les signaux, leur provenance et leurs états d'indisponibilité. Un signal non mesuré n'est jamais publié comme un nombre.
 
 [Architecture produit](https://github.com/neomundi-io/.github/blob/main/docs/PRODUCT_ARCHITECTURE.md) · [Audit des capacités](https://github.com/neomundi-io/.github/blob/main/docs/V2_FUNCTIONAL_AUDIT_2026-11-15.md) · [Tous les composants](https://github.com/orgs/neomundi-io/repositories)
