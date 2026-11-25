@@ -8,6 +8,10 @@
 
 **Know what was measured. Keep the evidence.**
 
+**Measure AI behavior at runtime and monitor its evolution across instrumented interactions.**
+
+Use post-call REST measurements or the SSE generation proxy to inform operational decisions in your existing systems. Policy and enforcement remain with the integrating application.
+
 This repository documents the **measurement instrument** itself: the REST and SSE contracts, the signals, their provenance and their unavailable states. A signal that was not measured is never published as a number.
 
 [Product architecture](https://github.com/neomundi-io/.github/blob/main/docs/PRODUCT_ARCHITECTURE.md) · [Capability audit](https://github.com/neomundi-io/.github/blob/main/docs/V2_FUNCTIONAL_AUDIT_2026-11-15.md) · [All components](https://github.com/orgs/neomundi-io/repositories)
