@@ -21,6 +21,7 @@ Ce dépôt documente l'**instrument de mesure** lui-même : les contrats REST et
 **INSTALL → TRACE → MEASURE → VERIFY → ACT**
 
 [![Measurement](https://img.shields.io/badge/Measurement-Mesurer-2563eb?style=flat-square)](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/README_FR.md)
+[![Intégrations](https://img.shields.io/badge/Int%C3%A9grations-6%20frameworks-7c3aed?style=flat-square)](https://github.com/neomundi-io/neomundi-integrations)
 [![Station](https://img.shields.io/badge/Station-Observer-0f766e?style=flat-square)](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md)
 [![Evidence](https://img.shields.io/badge/Evidence-Verifier-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-gateway/blob/main/README.fr.md)
 [![Use cases](https://img.shields.io/badge/Cas_d_usage-Explorer-64748b?style=flat-square)](https://github.com/neomundi-io/neomundi-use-cases/blob/main/README_FR.md)
@@ -35,11 +36,37 @@ Ce dépôt documente l'**instrument de mesure** lui-même : les contrats REST et
 
 ## Documentation et intégrations
 
-[Commencer](START_HERE_FR.md) · [Première mesure](QUICKSTART.md) · [Guide API](API_INTEGRATION_GUIDE.md) · [Signaux](docs/MEASUREMENT_CONTRACT.md) · [Interopérabilité](docs/INTEROPERABILITY.md) · [SDK Python](https://github.com/neomundi-io/neomundi-python-sdk) · [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp)
+[Commencer](START_HERE_FR.md) · [Première mesure](QUICKSTART.md) · [Guide API](API_INTEGRATION_GUIDE.md) · [Signaux](docs/MEASUREMENT_CONTRACT.md) · [Interopérabilité](docs/INTEROPERABILITY.md) · [SDK Python](https://github.com/neomundi-io/neomundi-python-sdk) · [Connecteurs de framework](https://github.com/neomundi-io/neomundi-integrations) · [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp)
 
 Les statuts techniques détaillés (REST, SSE, interopérabilité, SDK, MCP) figurent dans [Statut des intégrations](#statut-des-intégrations).
 
 ---
+
+
+## L'attacher à la pile que vous utilisez déjà
+
+**Intégrez NeoMundi à votre pile d'IA existante.** Une API de mesure. Six intégrations. Des preuves vérifiables.
+
+Les contrats documentés ici sont ce qu'une intégration parle. Si votre application fait déjà tourner
+l'un de ces hôtes, vous n'avez pas à les parler vous-même : attachez la mesure au point d'accroche
+que l'hôte vous donne déjà, et l'observation porte la latence et le décompte de jetons **que cet
+hôte a réellement observés**.
+
+| Votre pile | Paquet | Preuve |
+|---|---|---|
+| LangChain | [`langchain-neomundi`](https://pypi.org/project/langchain-neomundi/) | **E2** |
+| LiteLLM | [`litellm-neomundi`](https://pypi.org/project/litellm-neomundi/) | **E2** |
+| MLflow | [`mlflow-neomundi`](https://pypi.org/project/mlflow-neomundi/) | **E2** |
+| SDK OpenAI Agents | [`openai-agents-neomundi`](https://pypi.org/project/openai-agents-neomundi/) | **E2** |
+| OpenTelemetry | [`otel-neomundi`](https://pypi.org/project/otel-neomundi/) | **E2** |
+| Langfuse | [`langfuse-neomundi`](https://pypi.org/project/langfuse-neomundi/) | **E2** |
+
+**E2** est calculé, pas revendiqué : la CI ouvre un fichier de preuve sous le dossier `evidence/` de
+l'intégration et compare ses chiffres à ce que le manifeste affirme. Cela signifie des appels réels
+exécutés contre cette API et relus comme persistés.
+
+**[Bibliothèque d'intégrations](https://github.com/neomundi-io/neomundi-integrations)** ·
+**[Catalogue](https://github.com/neomundi-io/neomundi-integrations/blob/main/CATALOG_FR.md)**
 
 ## De l’interaction IA à la mesure consultable
 
