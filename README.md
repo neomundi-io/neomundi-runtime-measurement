@@ -21,6 +21,7 @@ This repository documents the **measurement instrument** itself: the REST and SS
 **INSTALL → TRACE → MEASURE → VERIFY → ACT**
 
 [![Measurement](https://img.shields.io/badge/Measurement-Measure-2563eb?style=flat-square)](https://github.com/neomundi-io/neomundi-runtime-measurement)
+[![Integrations](https://img.shields.io/badge/Integrations-6%20frameworks-7c3aed?style=flat-square)](https://github.com/neomundi-io/neomundi-integrations)
 [![Station](https://img.shields.io/badge/Station-Observe-0f766e?style=flat-square)](https://github.com/neomundi-io/neomundi-station-public)
 [![Evidence](https://img.shields.io/badge/Evidence-Verify-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-gateway)
 [![Use cases](https://img.shields.io/badge/Use_cases-Explore-64748b?style=flat-square)](https://github.com/neomundi-io/neomundi-use-cases)
@@ -35,11 +36,37 @@ This repository documents the **measurement instrument** itself: the REST and SS
 
 ## Documentation and integrations
 
-[Start here](START_HERE.md) · [First measurement](QUICKSTART.md) · [API guide](API_INTEGRATION_GUIDE.md) · [Signals](docs/MEASUREMENT_CONTRACT.md) · [Interoperability](docs/INTEROPERABILITY.md) · [Python SDK](https://github.com/neomundi-io/neomundi-python-sdk) · [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp)
+[Start here](START_HERE.md) · [First measurement](QUICKSTART.md) · [API guide](API_INTEGRATION_GUIDE.md) · [Signals](docs/MEASUREMENT_CONTRACT.md) · [Interoperability](docs/INTEROPERABILITY.md) · [Python SDK](https://github.com/neomundi-io/neomundi-python-sdk) · [Framework integrations](https://github.com/neomundi-io/neomundi-integrations) · [MCP](https://github.com/neomundi-io/neomundi-measurement-mcp)
 
 Technical capability status (REST, SSE, interoperability, SDK and MCP) is covered under [Integration status](#integration-status).
 
 ---
+
+
+## Attach it to the stack you already run
+
+**Integrate with your existing AI stack.** One measurement API. Six integrations. Verifiable evidence.
+
+The contracts documented here are what an integration speaks. If your application already runs one
+of these hosts, you do not have to speak them yourself — attach the measurement at the hook the host
+already gives you, and the observation carries the latency and the token count **that host actually
+observed**.
+
+| Your stack | Package | Evidence |
+|---|---|---|
+| LangChain | [`langchain-neomundi`](https://pypi.org/project/langchain-neomundi/) | **E2** |
+| LiteLLM | [`litellm-neomundi`](https://pypi.org/project/litellm-neomundi/) | **E2** |
+| MLflow | [`mlflow-neomundi`](https://pypi.org/project/mlflow-neomundi/) | **E2** |
+| OpenAI Agents SDK | [`openai-agents-neomundi`](https://pypi.org/project/openai-agents-neomundi/) | **E2** |
+| OpenTelemetry | [`otel-neomundi`](https://pypi.org/project/otel-neomundi/) | **E2** |
+| Langfuse | [`langfuse-neomundi`](https://pypi.org/project/langfuse-neomundi/) | **E2** |
+
+**E2** is computed, not claimed: CI opens a proof file under the integration's `evidence/` and
+compares its numbers to what the manifest asserts. It means real calls executed against this API and
+re-read as persisted.
+
+**[Integration library](https://github.com/neomundi-io/neomundi-integrations)** ·
+**[Catalogue](https://github.com/neomundi-io/neomundi-integrations/blob/main/CATALOG.md)**
 
 ## From an AI interaction to an inspectable measurement
 
