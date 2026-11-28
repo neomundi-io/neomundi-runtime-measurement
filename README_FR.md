@@ -21,7 +21,7 @@ Ce dépôt documente l'**instrument de mesure** lui-même : les contrats REST et
 **INSTALL → TRACE → MEASURE → VERIFY → ACT**
 
 [![Measurement](https://img.shields.io/badge/Measurement-Mesurer-2563eb?style=flat-square)](https://github.com/neomundi-io/neomundi-runtime-measurement/blob/main/README_FR.md)
-[![Intégrations](https://img.shields.io/badge/Int%C3%A9grations-6%20frameworks-7c3aed?style=flat-square)](https://github.com/neomundi-io/neomundi-integrations)
+[![Intégrations](https://img.shields.io/badge/Int%C3%A9grations-7%20frameworks-7c3aed?style=flat-square)](https://github.com/neomundi-io/neomundi-integrations)
 [![Station](https://img.shields.io/badge/Station-Observer-0f766e?style=flat-square)](https://github.com/neomundi-io/neomundi-station-public/blob/main/README.fr.md)
 [![Evidence](https://img.shields.io/badge/Evidence-Verifier-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-gateway/blob/main/README.fr.md)
 [![Use cases](https://img.shields.io/badge/Cas_d_usage-Explorer-64748b?style=flat-square)](https://github.com/neomundi-io/neomundi-use-cases/blob/main/README_FR.md)
@@ -45,7 +45,7 @@ Les statuts techniques détaillés (REST, SSE, interopérabilité, SDK, MCP) fig
 
 ## L'attacher à la pile que vous utilisez déjà
 
-**Intégrez NeoMundi à votre pile d'IA existante.** Une API de mesure. Six intégrations. Des preuves vérifiables.
+**Intégrez NeoMundi à votre pile d'IA existante.** Une API de mesure. Sept intégrations. Des preuves vérifiables.
 
 Les contrats documentés ici sont ce qu'une intégration parle. Si votre application fait déjà tourner
 l'un de ces hôtes, vous n'avez pas à les parler vous-même : attachez la mesure au point d'accroche
@@ -57,6 +57,7 @@ hôte a réellement observés**.
 | LangChain | [`langchain-neomundi`](https://pypi.org/project/langchain-neomundi/) | **E2** |
 | LiteLLM | [`litellm-neomundi`](https://pypi.org/project/litellm-neomundi/) | **E2** |
 | MLflow | [`mlflow-neomundi`](https://pypi.org/project/mlflow-neomundi/) | **E2** |
+| Microsoft Agent Framework | [`agent-framework-neomundi`](https://pypi.org/project/agent-framework-neomundi/) | **E2** |
 | SDK OpenAI Agents | [`openai-agents-neomundi`](https://pypi.org/project/openai-agents-neomundi/) | **E2** |
 | OpenTelemetry | [`otel-neomundi`](https://pypi.org/project/otel-neomundi/) | **E2** |
 | Langfuse | [`langfuse-neomundi`](https://pypi.org/project/langfuse-neomundi/) | **E2** |
@@ -166,13 +167,13 @@ Une réponse peut contenir un identifiant, un horodatage, des versions, la prove
 
 ## Statut des intégrations
 
-Statuts vérifiés le **30 octobre 2026**.
+Statuts vérifiés le **28 novembre 2026**.
 
 | Parcours | Statut | Preuve et limite |
 |---|---|---|
 | API REST | **Disponible ; exemples qualifiés** | Route et champs confirmés. Valeurs illustratives jusqu’à leur capture live. |
 | API SSE | **Alternative disponible** | NeoMundi appelle le fournisseur et reçoit son identifiant pour cet appel. |
-| SDK Python 2.0.0 | **Implémenté ; qualification live V2 en attente** | REST/SSE implémentés et tests hors ligne réussis. |
+| SDK Python 2.2.0 | **Qualifié en direct le 26 novembre 2026 : REST réussi, SSE réussi** | Qualifié contre la production en `measurement_version` 3.5.0 — quatre appels REST autorisés couvrant les deux métriques d'exécution présentes, chacune absente et les deux absentes, plus un flux SSE authentifié. N'ont **pas** été exercés : un agrégat retenu, un chemin d'erreur (402, 429…) ni plus d'un fournisseur SSE. [Preuves](https://github.com/neomundi-io/neomundi-python-sdk/tree/main/docs/evidence/) |
 | Plugin MCP local 0.2.0 | **Évalué en pilote** | Qualification REST/SSE bornée le 26 octobre 2026. |
 | Source MCP 0.3.0-rc.1 | **Release candidate** | Déploiement backend compagnon et nouvelle qualification requis. |
 | MCP hébergé | **Transport validé ; contrat en attente** | Les preuves locales ne qualifient pas le serveur séparé. |
