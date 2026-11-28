@@ -21,7 +21,7 @@ This repository documents the **measurement instrument** itself: the REST and SS
 **INSTALL → TRACE → MEASURE → VERIFY → ACT**
 
 [![Measurement](https://img.shields.io/badge/Measurement-Measure-2563eb?style=flat-square)](https://github.com/neomundi-io/neomundi-runtime-measurement)
-[![Integrations](https://img.shields.io/badge/Integrations-6%20frameworks-7c3aed?style=flat-square)](https://github.com/neomundi-io/neomundi-integrations)
+[![Integrations](https://img.shields.io/badge/Integrations-7%20frameworks-7c3aed?style=flat-square)](https://github.com/neomundi-io/neomundi-integrations)
 [![Station](https://img.shields.io/badge/Station-Observe-0f766e?style=flat-square)](https://github.com/neomundi-io/neomundi-station-public)
 [![Evidence](https://img.shields.io/badge/Evidence-Verify-D4A545?style=flat-square)](https://github.com/neomundi-io/neomundi-evidence-gateway)
 [![Use cases](https://img.shields.io/badge/Use_cases-Explore-64748b?style=flat-square)](https://github.com/neomundi-io/neomundi-use-cases)
@@ -45,7 +45,7 @@ Technical capability status (REST, SSE, interoperability, SDK and MCP) is covere
 
 ## Attach it to the stack you already run
 
-**Integrate with your existing AI stack.** One measurement API. Six integrations. Verifiable evidence.
+**Integrate with your existing AI stack.** One measurement API. Seven integrations. Verifiable evidence.
 
 The contracts documented here are what an integration speaks. If your application already runs one
 of these hosts, you do not have to speak them yourself — attach the measurement at the hook the host
@@ -57,6 +57,7 @@ observed**.
 | LangChain | [`langchain-neomundi`](https://pypi.org/project/langchain-neomundi/) | **E2** |
 | LiteLLM | [`litellm-neomundi`](https://pypi.org/project/litellm-neomundi/) | **E2** |
 | MLflow | [`mlflow-neomundi`](https://pypi.org/project/mlflow-neomundi/) | **E2** |
+| Microsoft Agent Framework | [`agent-framework-neomundi`](https://pypi.org/project/agent-framework-neomundi/) | **E2** |
 | OpenAI Agents SDK | [`openai-agents-neomundi`](https://pypi.org/project/openai-agents-neomundi/) | **E2** |
 | OpenTelemetry | [`otel-neomundi`](https://pypi.org/project/otel-neomundi/) | **E2** |
 | Langfuse | [`langfuse-neomundi`](https://pypi.org/project/langfuse-neomundi/) | **E2** |
@@ -166,13 +167,13 @@ A response may include an identifier and timestamp, version and provenance infor
 
 ## Integration status
 
-Checked against the linked repositories on **30 October 2026**.
+Checked against the linked repositories on **28 November 2026**.
 
 | Path | Status | Evidence and limit |
 |---|---|---|
 | REST API | **Available; examples qualified** | Route and fields are confirmed. Response values remain illustrative until captured live. |
 | SSE API | **Available alternative** | NeoMundi calls the provider and receives its credential for that call. Not required for an existing execution. |
-| Python SDK 2.0.0 | **Implemented; live V2 qualification pending** | REST/SSE implemented and offline tests pass; installed V2 live qualification remains pending. |
+| Python SDK 2.2.0 | **Live-qualified 2026-11-26: REST passed, SSE passed** | Qualified against production at `measurement_version` 3.5.0 — four authorised REST calls covering both runtime metrics present, each absent and both absent, plus one authenticated SSE stream. It did **not** exercise a withheld aggregate, an error path (402, 429…) or more than one SSE provider. [Evidence](https://github.com/neomundi-io/neomundi-python-sdk/tree/main/docs/evidence/) |
 | Local MCP plugin 0.2.0 | **Pilot-evaluated** | One bounded REST/SSE live qualification completed on 26 October 2026. |
 | MCP 0.3.0-rc.1 source | **Release candidate** | Response-schema validation added; companion backend deployment and fresh qualification required. |
 | Hosted MCP | **Transport validated; contract pending** | Local plugin evidence does not qualify the separate hosted server. |
